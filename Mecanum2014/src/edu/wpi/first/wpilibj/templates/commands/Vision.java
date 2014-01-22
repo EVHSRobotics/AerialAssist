@@ -52,11 +52,10 @@ public class Vision extends CommandBase {
         double tapeWidthScore;
         double verticalScore;
     };
-    
     TargetReport target;
     int verticalTargets[];
     int horizontalTargets[];
-    int verticalTargetCount; 
+    int verticalTargetCount;
     int horizontalTargetCount;
 
     public Vision() {
@@ -83,9 +82,9 @@ public class Vision extends CommandBase {
              * "testImage.jpg"
              *
              */
-            //ColorImage image = camera.getImage();     // comment if using stored images
+            //uncomment this after done testing the test images ColorImage image = camera.getImage();     
             ColorImage image;                           // next 2 lines read image from flash on cRIO
-            image = new RGBImage("/testImage.jpg");		// get the sample image from the cRIO flash
+            image = new RGBImage("/testImage.jpg");	// comment this back out after done testing 
             BinaryImage thresholdImage = image.thresholdHSV(105, 137, 230, 255, 133, 183);   // keep only green objects
             //thresholdImage.write("/threshold.bmp");
             BinaryImage filteredImage = thresholdImage.particleFilter(visionCamera.cc);           // filter out small particles
