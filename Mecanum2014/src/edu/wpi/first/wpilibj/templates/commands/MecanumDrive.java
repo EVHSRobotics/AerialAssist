@@ -12,7 +12,7 @@ package edu.wpi.first.wpilibj.templates.commands;
 public class MecanumDrive extends CommandBase {
     
    public final double DEADBAND = .3;
-    private final double SENSITIVITY = .6;
+    private final double SENSITIVITY =.6;
     public double xValue;
     public double yValue;
     public double twist;
@@ -32,38 +32,43 @@ public class MecanumDrive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    yValue = SENSITIVITY*fixDeadBand(oi.getJoystick1().getY(), DEADBAND);
-    xValue = SENSITIVITY*fixDeadBand(oi.getJoystick1().getX(), DEADBAND);
-    twist = .3*SENSITIVITY*fixDeadBand(oi.getJoystick1().getTwist(), DEADBAND*2); //double deadband
-    angle = driveTrain.gyro.getAngle();
-   // Robot.driveTrain.mecanumDrive.mecDrive(yValue, xValue, twist);    
+//            yValue = SENSITIVITY*fixDeadBand(oi.getJoystick().getY(), DEADBAND);
+//    xValue = SENSITIVITY*fixDeadBand(oi.getJoystick().getX(), DEADBAND);
+//    twist = .6*SENSITIVITY*fixDeadBand(oi.getJoystick().getZ(), DEADBAND); 
+     
+    yValue = SENSITIVITY*fixDeadBand(oi.controller.getRawAxis(5), DEADBAND);
+    xValue = SENSITIVITY*fixDeadBand(oi.controller.getRawAxis(4), DEADBAND);
+    twist = .6*SENSITIVITY*fixDeadBand(oi.controller.getRawAxis(3), DEADBAND); //double deadband
+   angle = driveTrain.gyro.getAngle();
+ 
     if (oi.getGyroReset()){
         driveTrain.gyro.reset();
        
     }
-    
-    driveTrain.mecanumDrive.mecanumDrive_Cartesian(-xValue, 
-            -yValue, -twist,angle); //x,y,rotation,gyroAngle
-//     driveTrain.mecanumDrive.mecanumDrive_Polar(-SENSITIVITY*fixDeadBand(oi.getJoystick1().getMagnitude(),
-// DEADBAND), -SENSITIVITY*fixDeadBand( oi.getJoystick1().getDirectionDegrees(),DEADBAND), -SENSITIVITY*
-//         fixDeadBand(oi.getJoystick1().getTwist(), DEADBAND*2));
+    driveTrain.mecDrive(xValue, -yValue, -twist, -angle);
+//   driveTrain.mecanumDrive.mecanumDrive_Cartesian(-xValue, 
+//           -yValue, -twist,angle); //x,y,rotation,gyroAngle
+//     driveTrain.mecanumDrive.mecanumDrive_Polar(-SENSITIVITY*fixDeadBand(oi.getJoystick().getMagnitude(),
+// DEADBAND), -SENSITIVITY*fixDeadBand( oi.getJoystick().getDirectionDegrees(),DEADBAND), -SENSITIVITY*
+//         fixDeadBand(oi.getJoystick().getTwist(), DEADBAND*2));
     
     //forward - left back (yValue negative)
     //backward - right forward
     //right - 
     
     //twist, xValue, yValue
-      System.out.println("GYRO: " + angle);
+     
     if(Math.abs(xValue + yValue + twist) > 0){
+        System.out.println("GYRO: " + angle);
         System.out.println("X: " + xValue + " Y: " + yValue + " T: " + twist);
-        System.out.println("FL: "+ driveTrain.frontLeft.get() + " BL: " +
-                driveTrain.backLeft.get() + " FR: " + driveTrain.frontRight.get() + " BR: " +
-                driveTrain.backRight.get());
+//        System.out.println("FL: "+ driveTrain.frontLeft.get() + " BL: " +
+//                driveTrain.backLeft.get() + " FR: " + driveTrain.frontRight.get() + " BR: " +
+//                driveTrain.backRight.get());
       
     }
  
 
-//    Robot.oi.getJoystick1().getTwist());
+//    Robot.oi.getJoystick().getTwist());
     }
 
     // Make this return true when this Command no longer needs to run execute()

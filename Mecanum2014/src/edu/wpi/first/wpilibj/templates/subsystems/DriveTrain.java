@@ -35,12 +35,11 @@ public class DriveTrain extends Subsystem {
         frontRight = new Victor(RobotMap.RIGHT_MOTOR_FRONT);
         backLeft = new Victor(RobotMap.LEFT_MOTOR_BACK);
         frontLeft = new Victor(RobotMap.LEFT_MOTOR_FRONT);
-        mecanumDrive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
+  //      mecanumDrive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
+        
+//        mecanumDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+//        mecanumDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
         gyro = new Gyro(RobotMap.GYRO_PORT);
-//        mecanumDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft,false);
-//        mecanumDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft,false);
-//        mecanumDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight,true);
-//        mecanumDrive.setInvertedMotor(RobotDrive.MotorType.kFrontRight,true);
     }
     
     public void initDefaultCommand() {
@@ -61,6 +60,42 @@ public class DriveTrain extends Subsystem {
             public void leftBackMove(double speed){
         backLeft.set(speed);
     }
+
+public void mecDrive(double x, double y, double t, double a){
+    double temp = y*Math.cos(Math.toRadians(a)) - x*Math.sin(Math.toRadians(a));
+    x = y*Math.sin(Math.toRadians(a)) + x*Math.cos(Math.toRadians(a));
+    y = temp;
+    if(Math.abs(x+y+t) > 0){
+        System.out.println("X: " +x + "Y: " + y);
+    }
     
+    double front_left = y + t + x;
+    double front_right = y - t - x;
+    double back_left = y + t - x;
+    double back_right = y - t + x;
+    
+    double max = Math.abs(front_left);
+    if (Math.abs(front_right)>max) {
+        max = Math.abs(front_right);
+    }
+    if (Math.abs(back_left)>max){
+        max=Math.abs(back_left);
+    }
+    if (Math.abs(back_right)>max) {
+        max=Math.abs(back_right);
+    }
+    if (max>1){
+      front_left/=max; front_right/=max; back_left/=max; back_right/=max;
+
+    }
+    frontLeft.set(-front_left);
+    frontRight.set(front_right);
+    backRight.set(back_right);
+    backLeft.set(-back_left);
+     if(Math.abs(x+y+t) > 0){
+            System.out.println("FL: "+ frontLeft.get() + " BL: " +
+                backLeft.get() + " FR: " + frontRight.get() + " BR: " +
+                backRight.get());
+            }}
 }
 

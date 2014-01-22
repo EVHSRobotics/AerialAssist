@@ -45,24 +45,48 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
     
     
-    public Joystick joystick1;
+    public Joystick controller;
     public Button gyroReset;
-
+    public double leftAxisX, leftAxisY, rightAxisX, rightAxisY, triggers;
+    public boolean ButtonAPressed;
+    
     public OI() {
 
-        joystick1 = new Joystick(1);
-	gyroReset = new JoystickButton(joystick1,1);    
+        controller = new Joystick(1);
+         leftAxisX = controller.getRawAxis(1);
+        leftAxisY = controller.getRawAxis(2);
+        rightAxisX = controller.getRawAxis(4);
+        rightAxisY = controller.getRawAxis(5);
+        triggers = controller.getRawAxis(2);
+        //ButtonAPressed = controller.getRawButton(1);
+        
+	gyroReset = new JoystickButton(controller,1);    
         // SmartDashboard Buttons
 
         SmartDashboard.putData("Mecanum Drive", new MecanumDrive());
        
     }
-    public Joystick getJoystick1() {
-        return joystick1;
+    public Joystick getJoystick() {
+        return controller;
     }
+    
+    public double getLeftX(){
+        return leftAxisX;
+    }
+    public double getLeftY(){
+        return leftAxisY;
+    }
+    public double getRightX(){
+        return rightAxisX;
+    }
+    public double getRightY(){
+        return rightAxisY;
+    }
+    
     public boolean getGyroReset(){
-        return gyroReset.get();
+        return controller.getRawButton(1);
     }
+    
     
     
 //Axis indexes:
