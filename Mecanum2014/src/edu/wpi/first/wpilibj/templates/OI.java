@@ -82,6 +82,7 @@ public class OI {
     public double getRightY(){
         return rightAxisY;
     }
+
     
     public boolean getGyroReset(){
         return controller.getRawButton(1);

@@ -45,7 +45,7 @@ public class MecanumDrive extends CommandBase {
         driveTrain.gyro.reset();
        
     }
-    driveTrain.mecDrive(xValue, -yValue, -twist, -angle);
+    driveTrain.mecDrive(-xValue, yValue, -twist, -angle);
 //   driveTrain.mecanumDrive.mecanumDrive_Cartesian(-xValue, 
 //           -yValue, -twist,angle); //x,y,rotation,gyroAngle
 //     driveTrain.mecanumDrive.mecanumDrive_Polar(-SENSITIVITY*fixDeadBand(oi.getJoystick().getMagnitude(),

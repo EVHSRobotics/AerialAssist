@@ -88,10 +88,10 @@ public void mecDrive(double x, double y, double t, double a){
       front_left/=max; front_right/=max; back_left/=max; back_right/=max;
 
     }
-    frontLeft.set(-front_left);
+    frontLeft.set(-front_left); //inverts motor
     frontRight.set(front_right);
     backRight.set(back_right);
-    backLeft.set(-back_left);
+    backLeft.set(-back_left); //inverts motor
      if(Math.abs(x+y+t) > 0){
             System.out.println("FL: "+ frontLeft.get() + " BL: " +
                 backLeft.get() + " FR: " + frontRight.get() + " BR: " +

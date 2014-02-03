@@ -3,7 +3,6 @@ package edu.wpi.first.wpilibj.templates.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.templates.OI;
-import edu.wpi.first.wpilibj.templates.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.templates.subsystems.DriveTrain;
 
 /**

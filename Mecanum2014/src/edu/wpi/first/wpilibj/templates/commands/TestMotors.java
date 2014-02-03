@@ -21,30 +21,30 @@ public class TestMotors extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-//        driveTrain.backLeft.set(.5);
-//        Timer.delay(2.5);
-//         driveTrain.backLeft.set(0);
-//         driveTrain.frontLeft.set(.5);
-//            Timer.delay(2.5);
-//         driveTrain.frontLeft.set(0);
-//          driveTrain.frontRight.set(.5);
-//          Timer.delay(2.5);
-//          driveTrain.frontRight.set(0);
-//           driveTrain.backRight.set(.5);
-//           Timer.delay(2.5);
-//           driveTrain.backRight.set(0); 
-        driveTrain.backLeft.set(-.4);
-        driveTrain.backRight.set(.4);
-        driveTrain.frontRight.set(.4);
-        driveTrain.frontLeft.set(-.4);
-            System.out.println("FL: "+ driveTrain.frontLeft.get() + " BL: " +
-                driveTrain.backLeft.get() + " FR: " + driveTrain.frontRight.get() + " BR: " +
-                driveTrain.backRight.get());
+        driveTrain.backLeft.set(.5);
+        Timer.delay(.5);
+         driveTrain.backLeft.set(0);
+         driveTrain.frontLeft.set(.5);
             Timer.delay(.5);
-                driveTrain.backLeft.set(0);
-        driveTrain.backRight.set(0);
-        driveTrain.frontRight.set(0);
-        driveTrain.frontLeft.set(0);
+         driveTrain.frontLeft.set(0);
+          driveTrain.frontRight.set(.5);
+          Timer.delay(.5);
+          driveTrain.frontRight.set(0);
+           driveTrain.backRight.set(.5);
+           Timer.delay(.5);
+           driveTrain.backRight.set(0); 
+//        driveTrain.backLeft.set(-.4);
+//        driveTrain.backRight.set(.4);
+//        driveTrain.frontRight.set(.4);
+//        driveTrain.frontLeft.set(-.4);
+//            System.out.println("FL: "+ driveTrain.frontLeft.get() + " BL: " +
+//                driveTrain.backLeft.get() + " FR: " + driveTrain.frontRight.get() + " BR: " +
+//                driveTrain.backRight.get());
+//            Timer.delay(.5);
+//                driveTrain.backLeft.set(0);
+//        driveTrain.backRight.set(0);
+//        driveTrain.frontRight.set(0);
+//        driveTrain.frontLeft.set(0);
            
     }
 
