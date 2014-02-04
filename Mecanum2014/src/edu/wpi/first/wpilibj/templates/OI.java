@@ -47,6 +47,9 @@ public class OI {
     
     public Joystick controller;
     public Button gyroReset;
+    public Button shootButton; 
+    public Button pickupButton; 
+    public Button shiftArmButton;
     public double leftAxisX, leftAxisY, rightAxisX, rightAxisY, triggers;
     public boolean ButtonAPressed;
     
@@ -59,6 +62,10 @@ public class OI {
         rightAxisY = controller.getRawAxis(5);
         triggers = controller.getRawAxis(2);
         //ButtonAPressed = controller.getRawButton(1);
+        
+        shootButton = new JoystickButton(controller,2);
+        pickupButton = new JoystickButton(controller,3);
+        shiftArmButton = new JoystickButton(controller,4);
         
 	gyroReset = new JoystickButton(controller,1);    
         // SmartDashboard Buttons
@@ -83,6 +90,16 @@ public class OI {
         return rightAxisY;
     }
 
+    
+    public boolean getShooting() {
+        return shootButton.get();
+    }    
+    public boolean getPickingUp() {
+        return pickupButton.get();
+    }    
+    public boolean getShiftingArm() {
+        return shiftArmButton.get();
+    }
     
     public boolean getGyroReset(){
         return controller.getRawButton(1);
