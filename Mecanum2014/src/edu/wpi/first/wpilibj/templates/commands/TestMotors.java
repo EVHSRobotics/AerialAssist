@@ -24,12 +24,15 @@ public class TestMotors extends CommandBase {
         driveTrain.backLeft.set(.5);
         Timer.delay(.5);
          driveTrain.backLeft.set(0);
+         Timer.delay(.5);
          driveTrain.frontLeft.set(.5);
             Timer.delay(.5);
          driveTrain.frontLeft.set(0);
+         Timer.delay(.5);
           driveTrain.frontRight.set(.5);
           Timer.delay(.5);
           driveTrain.frontRight.set(0);
+          Timer.delay(.5);
            driveTrain.backRight.set(.5);
            Timer.delay(.5);
            driveTrain.backRight.set(0); 

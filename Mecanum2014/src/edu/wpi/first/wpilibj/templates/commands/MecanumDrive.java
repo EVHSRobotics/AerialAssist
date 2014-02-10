@@ -5,6 +5,8 @@
  */
 package edu.wpi.first.wpilibj.templates.commands;
 
+import edu.wpi.first.wpilibj.Timer;
+
 /**
  *
  * @author Justin
@@ -12,7 +14,7 @@ package edu.wpi.first.wpilibj.templates.commands;
 public class MecanumDrive extends CommandBase {
     
    public final double DEADBAND = .3;
-    private final double SENSITIVITY =.6;
+    private final double T_SENSITIVITY =.3;
     public double xValue;
     public double yValue;
     public double twist;
@@ -36,16 +38,28 @@ public class MecanumDrive extends CommandBase {
 //    xValue = SENSITIVITY*fixDeadBand(oi.getJoystick().getX(), DEADBAND);
 //    twist = .6*SENSITIVITY*fixDeadBand(oi.getJoystick().getZ(), DEADBAND); 
      
-    yValue = SENSITIVITY*fixDeadBand(oi.controller.getRawAxis(5), DEADBAND);
-    xValue = SENSITIVITY*fixDeadBand(oi.controller.getRawAxis(4), DEADBAND);
-    twist = .6*SENSITIVITY*fixDeadBand(oi.controller.getRawAxis(3), DEADBAND); //double deadband
-   angle = driveTrain.gyro.getAngle();
+    yValue = fixDeadBand(oi.controller.getRawAxis(5), DEADBAND);
+    xValue = fixDeadBand(oi.controller.getRawAxis(4), DEADBAND);
+    twist = fixDeadBand(oi.controller.getRawAxis(3), DEADBAND);
+   angle = T_SENSITIVITY*driveTrain.gyro.getAngle();
  
     if (oi.getGyroReset()){
         driveTrain.gyro.reset();
+        Timer.delay(.5);
        
     }
-    driveTrain.mecDrive(-xValue, yValue, -twist, -angle);
+    if (oi.controller.getRawButton(3)){
+        if (driveTrain.slowed){
+            driveTrain.slowed = false;
+            Timer.delay(.5);
+        }
+        else{
+            
+        driveTrain.slowed=true;
+        Timer.delay(.5);
+        }
+    }
+    driveTrain.mecDrive(xValue, -yValue, -twist, -angle);
 //   driveTrain.mecanumDrive.mecanumDrive_Cartesian(-xValue, 
 //           -yValue, -twist,angle); //x,y,rotation,gyroAngle
 //     driveTrain.mecanumDrive.mecanumDrive_Polar(-SENSITIVITY*fixDeadBand(oi.getJoystick().getMagnitude(),
@@ -58,14 +72,14 @@ public class MecanumDrive extends CommandBase {
     
     //twist, xValue, yValue
      
-    if(Math.abs(xValue + yValue + twist) > 0){
-        System.out.println("GYRO: " + angle);
-        System.out.println("X: " + xValue + " Y: " + yValue + " T: " + twist);
-//        System.out.println("FL: "+ driveTrain.frontLeft.get() + " BL: " +
-//                driveTrain.backLeft.get() + " FR: " + driveTrain.frontRight.get() + " BR: " +
-//                driveTrain.backRight.get());
-      
-    }
+//    if(Math.abs(xValue + yValue + twist) > 0){
+//        System.out.println("GYRO: " + angle);
+//        System.out.println("X: " + xValue + " Y: " + yValue + " T: " + twist);
+////        System.out.println("FL: "+ driveTrain.frontLeft.get() + " BL: " +
+////                driveTrain.backLeft.get() + " FR: " + driveTrain.frontRight.get() + " BR: " +
+////                driveTrain.backRight.get());
+//      
+//    }
  
 
 //    Robot.oi.getJoystick().getTwist());

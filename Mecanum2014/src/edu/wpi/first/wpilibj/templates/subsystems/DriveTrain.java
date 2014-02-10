@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.templates.RobotMap;
 import edu.wpi.first.wpilibj.templates.commands.MecanumDrive;
+import edu.wpi.first.wpilibj.templates.commands.TankDrive;
 
 /**
  *
@@ -29,22 +30,24 @@ public class DriveTrain extends Subsystem {
     public Victor frontLeft;// = RobotMap.driveTrainFrontLeft;
     public RobotDrive mecanumDrive;// = RobotMap.mecanumDrive;
     public Gyro gyro;
+    double kLF, kLB, kRF, kRB;
+    public boolean slowed;
     
     public DriveTrain(){
         backRight = new Victor(RobotMap.RIGHT_MOTOR_BACK);
         frontRight = new Victor(RobotMap.RIGHT_MOTOR_FRONT);
         backLeft = new Victor(RobotMap.LEFT_MOTOR_BACK);
         frontLeft = new Victor(RobotMap.LEFT_MOTOR_FRONT);
-  //      mecanumDrive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
+      //  mecanumDrive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
         
-//        mecanumDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-//        mecanumDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+    //    mecanumDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+      // mecanumDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
         gyro = new Gyro(RobotMap.GYRO_PORT);
     }
     
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+      // setDefaultCommand(new TankDrive());
         setDefaultCommand(new MecanumDrive());
     }
     public void rightFrontMove(double speed){
@@ -62,12 +65,37 @@ public class DriveTrain extends Subsystem {
     }
 
 public void mecDrive(double x, double y, double t, double a){
+    
     double temp = y*Math.cos(Math.toRadians(a)) - x*Math.sin(Math.toRadians(a));
     x = y*Math.sin(Math.toRadians(a)) + x*Math.cos(Math.toRadians(a));
     y = temp;
     if(Math.abs(x+y+t) > 0){
         System.out.println("X: " +x + "Y: " + y);
     }
+    if(x>0.15){
+        if(Math.abs(x+y+t) > 0){
+        kLF=.8;
+        kLB = 1;
+        kRF = .8;
+        kRB = 1;
+        System.out.println("LF " + kLF + " LB " + kLB + " RF" + kRF + "RB" +kRB);
+    }}
+    if(slowed){
+        if(Math.abs(x+y+t) > 0){
+        kLF=.45;
+        kLB = .6;
+        kRF = .45;
+        kRB = .45;
+        System.out.println("LF " + kLF + " LB " + kLB + " RF" + kRF + "RB" +kRB);
+    }}
+    else{
+        if(Math.abs(x+y+t) > 0){
+        kLF= 1;
+        kLB = 1;
+        kRF = 1;
+        kRB = 1;
+        System.out.println("LF " + kLF + " LB " + kLB + " RF" + kRF + "RB" +kRB);
+    }}
     
     double front_left = y + t + x;
     double front_right = y - t - x;
@@ -88,14 +116,15 @@ public void mecDrive(double x, double y, double t, double a){
       front_left/=max; front_right/=max; back_left/=max; back_right/=max;
 
     }
-    frontLeft.set(-front_left); //inverts motor
-    frontRight.set(front_right);
-    backRight.set(back_right);
-    backLeft.set(-back_left); //inverts motor
-     if(Math.abs(x+y+t) > 0){
-            System.out.println("FL: "+ frontLeft.get() + " BL: " +
-                backLeft.get() + " FR: " + frontRight.get() + " BR: " +
-                backRight.get());
-            }}
-}
+    frontLeft.set(kLF * -front_left); //inverts motor
+    frontRight.set(kRF * front_right);
+    backRight.set(kRB * back_right);
+    backLeft.set(kLB *-back_left); //inverts motor
+//     if(Math.abs(x+y+t) > 0){
+//            System.out.println("FL: "+ frontLeft.get() + " BL: " +
+//                backLeft.get() + " FR: " + frontRight.get() + " BR: " +
+//                backRight.get());
+//            }}
+
+}}
 
