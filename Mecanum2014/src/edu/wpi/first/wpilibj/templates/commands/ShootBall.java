@@ -6,7 +6,6 @@
 package edu.wpi.first.wpilibj.templates.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.templates.subsystems.Shooter;
 
 /**
@@ -14,7 +13,7 @@ import edu.wpi.first.wpilibj.templates.subsystems.Shooter;
  * @author Justin
  */
 public class ShootBall extends CommandBase {
-    
+    double speed = .6;
     public final double DEADBAND = 0.1;
     
     public ShootBall() {
@@ -48,18 +47,26 @@ public class ShootBall extends CommandBase {
                 System.out.println("go to start");
             }
         } 
+        if (oi.controller.getRawButton(3)){
+            speed -= .1; 
+            System.out.println("S: " +speed);
+        }
+        if (oi.controller.getRawButton(4)){
+            speed += .1;
+            System.out.println("S: " +speed);
+        }
         
         if (oi.controller.getRawAxis(3) > DEADBAND) {
             shooter.shoot(1);
             System.out.println("the ball should have launched");
         } else if (oi.controller.getRawAxis(3) < -DEADBAND) {
-            shooter.shoot(-0.3);
+            shooter.shoot(-.6);
             System.out.println("pick up the ball");
         } else {
             shooter.shoot(0);
         }
         
-        Timer.delay(.5);
+        Timer.delay(.1);
     }
 
     // Make this return true when this Command no longer needs to run execute()

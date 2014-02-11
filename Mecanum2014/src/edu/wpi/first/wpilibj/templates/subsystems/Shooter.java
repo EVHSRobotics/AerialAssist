@@ -88,7 +88,7 @@ public class Shooter extends PIDSubsystem {
     
     public void shoot(double speed) {
         leftCim.set(speed);
-        rightCim.set(speed);
+        rightCim.set(-speed);
     }
     
     public void moveArm(double direction) {
