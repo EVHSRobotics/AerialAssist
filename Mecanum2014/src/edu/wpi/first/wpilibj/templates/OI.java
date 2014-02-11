@@ -56,11 +56,11 @@ public class OI {
     public OI() {
 
         controller = new Joystick(1);
-         leftAxisX = controller.getRawAxis(1);
+        leftAxisX = controller.getRawAxis(1);
         leftAxisY = controller.getRawAxis(2);
         rightAxisX = controller.getRawAxis(4);
         rightAxisY = controller.getRawAxis(5);
-        triggers = controller.getRawAxis(2);
+        triggers = controller.getRawAxis(3);
         //ButtonAPressed = controller.getRawButton(1);
         
         shootButton = new JoystickButton(controller,2);
@@ -91,18 +91,19 @@ public class OI {
     }
 
     
-    public boolean getShooting() {
-        return shootButton.get();
+    public boolean getBackRightButton() {
+        return controller.getRawButton(6);
     }    
-    public boolean getPickingUp() {
-        return pickupButton.get();
+    public double getTriggers() {
+        return triggers;
     }    
-    public boolean getShiftingArm() {
-        return shiftArmButton.get();
+    
+    public boolean getAButton(){
+        return controller.getRawButton(1);
     }
     
-    public boolean getGyroReset(){
-        return controller.getRawButton(1);
+    public boolean getBButton() {
+        return controller.getRawButton(2);
     }
     
     
@@ -115,5 +116,17 @@ public class OI {
 //5 - RightY
 //6 - DPad Left/Right
 //double axisValue = mXboxController.getRawAxis(2); // Where "2" is the index of the Y axis on the left stick (see above)
+    
+//Button indexes: 
+    //1 A 
+    //2 B
+    //3 X 
+    //4 Y 
+    //5 LB 
+    //6 RB 
+    //7 back 
+    //8 start 
+    //9 left stick press 
+    //10 right stick press 
 }
 
