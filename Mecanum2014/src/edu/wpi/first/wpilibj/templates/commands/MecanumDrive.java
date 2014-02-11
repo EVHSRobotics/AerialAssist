@@ -38,7 +38,7 @@ public class MecanumDrive extends CommandBase {
      
     yValue = SENSITIVITY*fixDeadBand(oi.controller.getRawAxis(5), DEADBAND);
     xValue = SENSITIVITY*fixDeadBand(oi.controller.getRawAxis(4), DEADBAND);
-    twist = .6*SENSITIVITY*fixDeadBand(oi.controller.getRawAxis(3), DEADBAND); //double deadband
+    twist = .6*SENSITIVITY*fixDeadBand(oi.controller.getRawAxis(1), DEADBAND); //double deadband
    angle = driveTrain.gyro.getAngle();
  
     if (oi.getBButton()){

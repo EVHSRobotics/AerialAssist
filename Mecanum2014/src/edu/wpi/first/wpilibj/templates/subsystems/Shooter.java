@@ -19,18 +19,18 @@ import edu.wpi.first.wpilibj.templates.commands.ShootBall;
 public class Shooter extends PIDSubsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    public Victor leftCim;
-    public Victor rightCim; 
-    public Victor armMotor;
+    public Jaguar leftCim;
+    public Jaguar rightCim; 
+    public Jaguar armMotor;
     public Encoder quadEncoder;
     public static final int START = 0, FINISH = 50 , DISTANCE = 1;
     public static final double TOLERANCE = 10, MINRATE = .2;
     
     public Shooter() {
         super("Shooter" , 1, .1, 0); //PID
-        leftCim = new Victor(RobotMap.LEFT_SHOOT_MOTOR);
-        rightCim = new Victor(RobotMap.RIGHT_SHOOT_MOTOR);
-        armMotor = new Victor(RobotMap.ARM_MOTOR); 
+        leftCim = new Jaguar(RobotMap.LEFT_SHOOT_MOTOR);
+        rightCim = new Jaguar(RobotMap.RIGHT_SHOOT_MOTOR);
+        armMotor = new Jaguar(RobotMap.ARM_MOTOR); 
         
         quadEncoder = new Encoder(RobotMap.ENCODER_A_PORT , RobotMap.ENCODER_B_PORT, false ,CounterBase.EncodingType.k4X);
     
@@ -53,7 +53,7 @@ public class Shooter extends PIDSubsystem {
     }
     
     public void usePIDOutput(double output){
-        System.out.println("O" +output);
+        //System.out.println("O" +output);
         if (Math.abs(getSetpoint() - quadEncoder.getDistance()) > TOLERANCE){
            // if(output != 0) System.out.println("O: " + output);
             //armMotor.set(getSign(output) * .3);

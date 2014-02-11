@@ -34,12 +34,12 @@ public class ShootBall extends CommandBase {
           //  shooter.quadEncoder.reset();
         //}
         
-        if(oi.getAButton()){
+        if(oi.controller.getRawButton(1)){
             System.out.println("arm should stop right now. if it doesn't we are screwed");
             shooter.armStop();
         } 
         
-        if(oi.getBackRightButton()){ //right trigger
+        if(oi.controller.getRawButton(6)){ //right trigger
             if( shooter.getSetpoint() == Shooter.START) {
                 System.out.println("go to finish");
                 shooter.setSetpoint(Shooter.FINISH);
@@ -49,10 +49,10 @@ public class ShootBall extends CommandBase {
             }
         } 
         
-        if (oi.getTriggers() > DEADBAND) {
+        if (oi.controller.getRawAxis(3) > DEADBAND) {
             shooter.shoot(1);
             System.out.println("the ball should have launched");
-        } else if (oi.getTriggers() < -DEADBAND) {
+        } else if (oi.controller.getRawAxis(3) < -DEADBAND) {
             shooter.shoot(-0.3);
             System.out.println("pick up the ball");
         } else {
