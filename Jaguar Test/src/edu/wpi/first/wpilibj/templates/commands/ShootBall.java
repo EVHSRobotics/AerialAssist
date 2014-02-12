@@ -60,7 +60,7 @@ public class ShootBall extends CommandBase {
             shooter.shoot(speed);
             System.out.println("the ball should have launched");
         } else if (oi.controller.getRawAxis(3) > DEADBAND) {
-            shooter.shoot(-.5);
+            shooter.shoot(-.6);
             System.out.println("pick up the ball");
         } else {
             shooter.shoot(0);

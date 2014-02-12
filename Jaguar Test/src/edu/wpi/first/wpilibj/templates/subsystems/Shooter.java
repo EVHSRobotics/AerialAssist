@@ -19,18 +19,23 @@ import edu.wpi.first.wpilibj.templates.commands.ShootBall;
 public class Shooter extends PIDSubsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    public Victor leftCim;
-    public Victor rightCim; 
-    public Victor armMotor;
+    public Jaguar leftCim;
+    public Jaguar rightCim; 
+    public Jaguar armMotor;
+    public Jaguar jag1, jag2, jag3, jag5;
     public Encoder quadEncoder;
     public static final int START = 0, FINISH = 50 , DISTANCE = 1;
     public static final double TOLERANCE = 10, MINRATE = .2;
     
     public Shooter() {
         super("Shooter" , 1, .1, 0); //PID
-        leftCim = new Victor(RobotMap.LEFT_SHOOT_MOTOR);
-        rightCim = new Victor(RobotMap.RIGHT_SHOOT_MOTOR);
-        armMotor = new Victor(RobotMap.ARM_MOTOR); 
+        leftCim = new Jaguar(RobotMap.LEFT_SHOOT_MOTOR);
+        rightCim = new Jaguar(RobotMap.RIGHT_SHOOT_MOTOR);
+        jag1= new Jaguar(1);
+         jag2= new Jaguar(2);
+          jag3= new Jaguar(3);
+           jag5= new Jaguar(5);
+        armMotor = new Jaguar(RobotMap.ARM_MOTOR); 
         
         quadEncoder = new Encoder(RobotMap.ENCODER_A_PORT , RobotMap.ENCODER_B_PORT, false ,CounterBase.EncodingType.k4X);
     
@@ -87,8 +92,13 @@ public class Shooter extends PIDSubsystem {
     }
     
     public void shoot(double speed) {
-        leftCim.set(speed);
-        rightCim.set(-speed);
+        leftCim.set(-speed);
+        rightCim.set(speed);
+        jag1.set(speed);
+        jag2.set(speed);
+        jag3.set(speed);
+        jag5.set(speed);
+        System.out.println(leftCim.get() + " " +rightCim.get());
     }
     
     public void moveArm(double direction) {
