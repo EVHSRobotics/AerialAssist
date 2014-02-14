@@ -2,10 +2,6 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.templates.commands.MecanumDrive;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -46,66 +42,55 @@ public class OI {
     
     
     public Joystick controller;
-    public Button gyroReset;
-    public Button shootButton; 
-    public Button pickupButton; 
-    public Button shiftArmButton;
-    public double leftAxisX, leftAxisY, rightAxisX, rightAxisY, triggers;
-    public boolean ButtonAPressed;
     
     public OI() {
-
         controller = new Joystick(1);
-        leftAxisX = controller.getRawAxis(1);
-        leftAxisY = controller.getRawAxis(2);
-        rightAxisX = controller.getRawAxis(4);
-        rightAxisY = controller.getRawAxis(5);
-        triggers = controller.getRawAxis(3);
-        //ButtonAPressed = controller.getRawButton(1);
-        
-        shootButton = new JoystickButton(controller,2);
-        pickupButton = new JoystickButton(controller,3);
-        shiftArmButton = new JoystickButton(controller,4);
-        
-	gyroReset = new JoystickButton(controller,1);    
-        // SmartDashboard Buttons
-
-        SmartDashboard.putData("Mecanum Drive", new MecanumDrive());
-       
     }
+    
     public Joystick getJoystick() {
         return controller;
     }
     
     public double getLeftX(){
-        return leftAxisX;
+        return controller.getRawAxis(1);
     }
     public double getLeftY(){
-        return leftAxisY;
+        return controller.getRawAxis(2);
     }
     public double getRightX(){
-        return rightAxisX;
+        return controller.getRawAxis(4);
     }
     public double getRightY(){
-        return rightAxisY;
+        return controller.getRawAxis(5);
     }
-
-    
-    public boolean getBackRightButton() {
-        return controller.getRawButton(6);
-    }    
     public double getTriggers() {
-        return triggers;
-    }    
+        return controller.getRawAxis(3);
+    }
     
-    public boolean getAButton(){
+    public boolean getA(){
         return controller.getRawButton(1);
     }
-    
-    public boolean getBButton() {
+    public boolean getB() {
         return controller.getRawButton(2);
     }
-    
+    public boolean getX() {
+        return controller.getRawButton(3);
+    }
+    public boolean getY() {
+        return controller.getRawButton(4);
+    }
+    public boolean getLB() {
+        return controller.getRawButton(5);
+    }
+    public boolean getRB() {
+        return controller.getRawButton(6);
+    }
+    public boolean getBack() {
+        return controller.getRawButton(7);
+    }
+    public boolean getStart() {
+        return controller.getRawButton(8);
+    }
     
     
 //Axis indexes:

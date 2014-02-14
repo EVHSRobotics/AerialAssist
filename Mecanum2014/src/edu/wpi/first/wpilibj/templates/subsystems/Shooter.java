@@ -6,7 +6,7 @@ package edu.wpi.first.wpilibj.templates.subsystems;
 
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.templates.RobotMap;
@@ -22,15 +22,23 @@ public class Shooter extends PIDSubsystem {
     public Victor leftCim;
     public Victor rightCim; 
     public Victor armMotor;
+    public Victor launchMotor;
     public Encoder quadEncoder;
-    public static final int START = 0, FINISH = 50 , DISTANCE = 1;
+    public static final int 
+            START = 0, 
+            SHOOTING1 = 50 , 
+            SHOOTING2 = 30, 
+            PASSING = 25, 
+            PICKUP = 5, 
+            DISTANCE = 1;
     public static final double TOLERANCE = 10, MINRATE = .2;
     
     public Shooter() {
         super("Shooter" , 1, .1, 0); //PID
         leftCim = new Victor(RobotMap.LEFT_SHOOT_MOTOR);
         rightCim = new Victor(RobotMap.RIGHT_SHOOT_MOTOR);
-       // armMotor = new Victor(RobotMap.ARM_MOTOR); 
+        launchMotor = new Victor(RobotMap.LAUNCH_MOTOR);
+        armMotor = new Victor(RobotMap.ARM_MOTOR); 
         
         quadEncoder = new Encoder(RobotMap.ENCODER_A_PORT , RobotMap.ENCODER_B_PORT, false ,CounterBase.EncodingType.k4X);
     
@@ -91,8 +99,10 @@ public class Shooter extends PIDSubsystem {
         rightCim.set(-speed);
     }
     
-    public void moveArm(double direction) {
-        armMotor.set(direction);
+    public void launchTrigger() {
+        launchMotor.set(0.5);
+        Timer.delay(0.5);
+        launchMotor.set(-0.5);
     }
     
     public void armStop() {

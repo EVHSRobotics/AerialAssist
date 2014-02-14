@@ -13,9 +13,10 @@ import edu.wpi.first.wpilibj.templates.subsystems.Shooter;
  * @author Justin
  */
 public class ShootBall extends CommandBase {
+
     double speed = .6;
     public final double DEADBAND = 0.1;
-    
+
     public ShootBall() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -28,37 +29,40 @@ public class ShootBall extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        
+
         //if(oi.controller.getRawButton(2)){
-          //  shooter.quadEncoder.reset();
+        //  shooter.quadEncoder.reset();
         //}
-        
-        if(oi.controller.getRawButton(1)){
-            System.out.println("arm should stop right now. if it doesn't we are screwed");
+
+        if (oi.getLB()) {
+            System.out.println("arm stop");
             shooter.armStop();
-        } 
-        
-        if(oi.controller.getRawButton(6)){ //right trigger
-            if( shooter.getSetpoint() == Shooter.START) {
-                System.out.println("go to finish");
-                shooter.setSetpoint(Shooter.FINISH);
-            } else if (shooter.getSetpoint() == Shooter.FINISH) {
+        }
+        if (oi.getStart()) {
                 shooter.setSetpoint(Shooter.START);
                 System.out.println("go to start");
-            }
-        } 
-
+        }
         
-        if (oi.controller.getRawAxis(3) <-DEADBAND) {
+        if (oi.getA()) {
+            shooter.setSetpoint(Shooter.PICKUP);
+            shooter.shoot(-0.6);
+        } else if (oi.getX()) {
+            shooter.setSetpoint(Shooter.SHOOTING1);
             shooter.shoot(1);
-            System.out.println("the ball should have launched");
-        } else if (oi.controller.getRawAxis(3) > DEADBAND) {
-            shooter.shoot(-.6);
-            System.out.println("pick up the ball");
+        } else if (oi.getY()) {
+            shooter.setSetpoint(Shooter.SHOOTING2);
+            shooter.shoot(1);
+        } else if (oi.getB()) {
+            shooter.setSetpoint(Shooter.PASSING);
+            shooter.shoot(0.8);
         } else {
             shooter.shoot(0);
         }
         
+        if (oi.getRB()) {
+            shooter.launchTrigger();
+        }
+
         Timer.delay(.2);
     }
 
