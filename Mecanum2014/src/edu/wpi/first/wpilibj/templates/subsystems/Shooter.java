@@ -30,7 +30,7 @@ public class Shooter extends PIDSubsystem {
         super("Shooter" , 1, .1, 0); //PID
         leftCim = new Victor(RobotMap.LEFT_SHOOT_MOTOR);
         rightCim = new Victor(RobotMap.RIGHT_SHOOT_MOTOR);
-        armMotor = new Victor(RobotMap.ARM_MOTOR); 
+       // armMotor = new Victor(RobotMap.ARM_MOTOR); 
         
         quadEncoder = new Encoder(RobotMap.ENCODER_A_PORT , RobotMap.ENCODER_B_PORT, false ,CounterBase.EncodingType.k4X);
     
@@ -87,7 +87,7 @@ public class Shooter extends PIDSubsystem {
     }
     
     public void shoot(double speed) {
-        leftCim.set(speed);
+        leftCim.set(-speed);
         rightCim.set(-speed);
     }
     
