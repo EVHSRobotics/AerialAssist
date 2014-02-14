@@ -128,5 +128,23 @@ public class OI {
     //8 start 
     //9 left stick press 
     //10 right stick press 
+//    
+//    Move Robot
+//X-Movement - Axis 1
+//Y-Movement - Axis 2
+//Twist - Axis 3
+//
+//Shooter & Arm
+//Trigger - RB (6)
+//
+//Move Arm
+//Picking up - A (1)
+//Passing - B (2)
+//Shooting - X (3) 
+//2nd angle shooting? - Y (4)
+//
+//Safety
+//Reset gyro (or disable) - Back
+//Start Position - Start
 }
 
