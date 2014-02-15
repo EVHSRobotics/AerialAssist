@@ -39,10 +39,10 @@ public class ShootBall extends CommandBase {
             shooter.armStop();
         }
         if (oi.getStart()) {
-                shooter.setSetpoint(Shooter.START);
-                System.out.println("go to start");
+            shooter.setSetpoint(Shooter.START);
+            System.out.println("go to start");
         }
-        
+
         if (oi.getA()) {
             shooter.setSetpoint(Shooter.PICKUP);
             shooter.shoot(-0.6);
@@ -62,11 +62,18 @@ public class ShootBall extends CommandBase {
         } else {
             shooter.shoot(0);
         }
-        
+
         if (oi.getRB()) {
-            shooter.launchTrigger();
             System.out.println("button: RB");
+            shooter.launchMotor.set(0.5);
+            Timer.delay(0.05);
+            shooter.launchMotor.set(-0.5);
+            while (shooter.limitSwitch.get()) {
+                Timer.delay(0.05);
+            }
+            shooter.launchMotor.set(0);
         }
+
 
         Timer.delay(.2);
     }

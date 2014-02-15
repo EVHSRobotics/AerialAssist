@@ -8,7 +8,7 @@ package edu.wpi.first.wpilibj.templates.subsystems;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.templates.RobotMap;
-import edu.wpi.first.wpilibj.templates.commands.ArmMoveNoPID;
+//import edu.wpi.first.wpilibj.templates.commands.ArmMoveNoPID;
 
 /**
  *
@@ -24,6 +24,6 @@ public class ArmNotPID extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-        setDefaultCommand(new ArmMoveNoPID());
+        //setDefaultCommand(new ArmMoveNoPID());
     }
 }
