@@ -28,6 +28,7 @@ public class RobotMap {
     public static final int LAUNCH_MOTOR = 8;
     
     public static final int GYRO_PORT = 2;
+    public static final int ARM_GYRO_PORT = 1;
     
     public static final int ENCODER_A_PORT = 7;
     public static final int ENCODER_B_PORT = 6;
