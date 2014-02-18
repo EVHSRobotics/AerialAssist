@@ -6,7 +6,6 @@
 package edu.wpi.first.wpilibj.templates.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.templates.subsystems.Shooter;
 
 /**
  *
@@ -39,28 +38,23 @@ public class ShootBall extends CommandBase {
             shooter.armStop();
         }
         if (oi.getStart()) {
-            shooter.setSetpoint(Shooter.START);
-            System.out.println("go to start");
         }
 
-        if (oi.getA()) {
-            shooter.setSetpoint(Shooter.PICKUP);
-            shooter.shoot(-0.6);
+        if (oi.getA()) { //motor out
+            shooter.shoot(1);
             System.out.println("button: A");
-        } else if (oi.getX()) {
-            shooter.setSetpoint(Shooter.SHOOTING1);
-            shooter.shoot(1);
+        } else if (oi.getX()) { //motor in
+            shooter.shoot(-0.6);
             System.out.println("button: X");
-        } else if (oi.getY()) {
-            shooter.setSetpoint(Shooter.SHOOTING2);
-            shooter.shoot(1);
+        } else if (oi.getY()) {//arm up
+            shooter.armMotor.set(0.5);
             System.out.println("button: Y");
-        } else if (oi.getB()) {
-            shooter.setSetpoint(Shooter.PASSING);
-            shooter.shoot(0.8);
+        } else if (oi.getB()) {//arm down
+            shooter.armMotor.set(-0.5);
             System.out.println("button: B");
         } else {
             shooter.shoot(0);
+            shooter.armMotor.set(0);
         }
 
         if (oi.getRB()) {
