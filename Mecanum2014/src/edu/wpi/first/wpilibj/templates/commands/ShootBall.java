@@ -65,9 +65,11 @@ public class ShootBall extends CommandBase {
 
         if (oi.getRB()) {
             System.out.println("button: RB");
-            shooter.launchMotor.set(0.5);
+            shooter.launchMotor.set(0.4);
+            while (shooter.limitSwitch.get()){
             Timer.delay(0.05);
-            shooter.launchMotor.set(-0.5);
+            }
+            shooter.launchMotor.set(-0.4);
             while (shooter.limitSwitch.get()) {
                 Timer.delay(0.05);
             }

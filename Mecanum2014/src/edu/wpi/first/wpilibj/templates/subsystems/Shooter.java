@@ -7,6 +7,7 @@ package edu.wpi.first.wpilibj.templates.subsystems;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -25,6 +26,7 @@ public class Shooter extends PIDSubsystem {
     public Victor armMotor;
     public Victor launchMotor;
     public Encoder quadEncoder;
+    public Gyro armGyro;
     public DigitalInput limitSwitch;
     public static final int 
             START = 0, 
@@ -43,19 +45,22 @@ public class Shooter extends PIDSubsystem {
         armMotor = new Victor(RobotMap.ARM_MOTOR); 
         
         limitSwitch = new DigitalInput(4);
+        armGyro = new Gyro(RobotMap.ARM_GYRO_PORT);
+        armGyro.reset();
         
         quadEncoder = new Encoder(RobotMap.ENCODER_A_PORT , RobotMap.ENCODER_B_PORT, false ,CounterBase.EncodingType.k4X);
-    
+      
+        //        quadEncoder.setMinRate(MINRATE);
+//        quadEncoder.setReverseDirection(true);
+//        quadEncoder.setDistancePerPulse(DISTANCE);
+//        quadEncoder.reset();
+        
         setAbsoluteTolerance(300);
         getPIDController().setContinuous(false);
-        quadEncoder.setMinRate(MINRATE);
-        quadEncoder.setReverseDirection(true);
-        quadEncoder.setDistancePerPulse(DISTANCE);
-        quadEncoder.reset();
         enable();
     
         setSetpoint(START);
-        quadEncoder.start();
+        //quadEncoder.start();
     }
     
     public void initDefaultCommand() {
@@ -66,8 +71,9 @@ public class Shooter extends PIDSubsystem {
     
     public void usePIDOutput(double output){
         //System.out.println("O" +output);
-        if (Math.abs(getSetpoint() - quadEncoder.getDistance()) > TOLERANCE){
-           // if(output != 0) System.out.println("O: " + output);
+       // if (Math.abs(getSetpoint() - quadEncoder.getDistance()) > TOLERANCE){
+         if (Math.abs(getSetpoint() - armGyro.getAngle()) > TOLERANCE){ 
+        // if(output != 0) System.out.println("O: " + output);
             //armMotor.set(getSign(output) * .3);
             armMotor.set(output * .3);
            // System.out.println("PID set" + armMotor.get());   
@@ -84,7 +90,8 @@ public class Shooter extends PIDSubsystem {
 //       
 //       return (getSetpoint() - quadEncoder.getDistance());
        // if(quadEncoder.getDistance() != 0) System.out.println("I: " + quadEncoder.getDistance());
-        return (quadEncoder.getDistance());
+       // return (quadEncoder.getDistance());
+        return armGyro.getAngle();
     }
     
     public double getSign(double f){
