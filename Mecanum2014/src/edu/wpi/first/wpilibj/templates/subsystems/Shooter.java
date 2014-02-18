@@ -43,7 +43,7 @@ public class Shooter extends Subsystem {
     }
     
     public void shoot(double speed) {
-        leftCim.set(-speed);
+        leftCim.set(speed);
         rightCim.set(-speed);
     }
     

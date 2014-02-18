@@ -12,7 +12,7 @@ package edu.wpi.first.wpilibj.templates.commands;
 public class MecanumDrive extends CommandBase {
 
     public final double DEADBAND = .3;
-    private final double SENSITIVITY = .6;
+    private final double SENSITIVITY = 1;
     public double xValue;
     public double yValue;
     public double twist;
@@ -46,8 +46,9 @@ public class MecanumDrive extends CommandBase {
 
         if (oi.getBack()) {
             driveTrain.gyro.reset();
+            System.out.println("Reset Gyro");
         }
-        driveTrain.mecDrive(-xValue, yValue, -twist, -angle);
+        driveTrain.mecDrive(xValue, -yValue, -twist, -angle);
 //   driveTrain.mecanumDrive.mecanumDrive_Cartesian(-xValue, 
 //           -yValue, -twist,angle); //x,y,rotation,gyroAngle
 //     driveTrain.mecanumDrive.mecanumDrive_Polar(-SENSITIVITY*fixDeadBand(oi.getJoystick().getMagnitude(),

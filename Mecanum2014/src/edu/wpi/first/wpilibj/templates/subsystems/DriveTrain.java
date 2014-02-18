@@ -71,22 +71,22 @@ public void mecDrive(double x, double y, double t, double a){
     if(Math.abs(x+y+t) > 0){
         System.out.println("X: " +x + " Y: " + y+" T: "+ t);
     }
-    if(x>0.15){
-        if(Math.abs(x+y+t) > 0){
-        kLF=.8;
-        kLB = 1;
-        kRF = .8;
-        kRB = 1;
-        System.out.println("LF " + kLF + " LB " + kLB + " RF" + kRF + "RB" +kRB);
-    }}
-//    if(slowed){
+//    if(x>0.15){
 //        if(Math.abs(x+y+t) > 0){
-//        kLF=.45;
-//        kLB = .6;
-//        kRF = .45;
-//        kRB = .45;
+//        kLF=.8;
+//        kLB = 1;
+//        kRF = .8;
+//        kRB = 1;
 //        System.out.println("LF " + kLF + " LB " + kLB + " RF" + kRF + "RB" +kRB);
 //    }}
+    if(slowed){
+        if(Math.abs(x+y+t) > 0){
+        kLF=.45;
+        kLB = .6;
+        kRF = .45;
+        kRB = .45;
+        System.out.println("LF " + kLF + " LB " + kLB + " RF" + kRF + "RB" +kRB);
+    }}
     else{
         if(Math.abs(x+y+t) > 0){
         kLF= 1;

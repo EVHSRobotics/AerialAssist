@@ -40,38 +40,51 @@ public class ShootBall extends CommandBase {
         if (oi.getStart()) {
         }
 
-        if (oi.getA()) { //motor out
+        if (oi.getX()) { //motor out
             shooter.shoot(1);
             System.out.println("button: A");
-        } else if (oi.getX()) { //motor in
+        } else if (oi.getA()) { //motor in
             shooter.shoot(-0.6);
             System.out.println("button: X");
         } else if (oi.getY()) {//arm up
-            shooter.armMotor.set(0.5);
+            shooter.armMotor.set(-0.5);
             System.out.println("button: Y");
         } else if (oi.getB()) {//arm down
-            shooter.armMotor.set(-0.5);
+            shooter.armMotor.set(0.5);
             System.out.println("button: B");
         } else {
             shooter.shoot(0);
             shooter.armMotor.set(0);
         }
 
-        if (oi.getRB()) {
-            System.out.println("button: RB");
-            shooter.launchMotor.set(0.4);
-            while (shooter.limitSwitch.get()){
-            Timer.delay(0.05);
-            }
-            shooter.launchMotor.set(-0.4);
-            while (shooter.limitSwitch.get()) {
-                Timer.delay(0.05);
-            }
-            shooter.launchMotor.set(0);
+        {if (oi.getRB()) {
+            shooter.launchMotor.set(1);
+//            System.out.println("button: RB");
+//            shooter.launchMotor.set(0.6);
+//            do {
+//                System.out.println("Trigger Forward");
+//                Timer.delay(0.1);
+//            } while (shooter.limitSwitch.get() || oi.getLB());
+//                
+//                
+//            
+//            shooter.launchMotor.set(-0.6);
+//            do {
+//                System.out.println("Trigger Backward");
+//                Timer.delay(0.1);
+//            } while (shooter.limitSwitch.get() || oi.getLB());
+//                
+//            shooter.launchMotor.set(0);
+      }
+        else if(oi.getLB()){
+            shooter.launchMotor.set(-1);
         }
+        else{
+            shooter.launchMotor.set(0);
+        }}
 
 
-        Timer.delay(.2);
+        Timer.delay(.1);
     }
 
     // Make this return true when this Command no longer needs to run execute()
