@@ -49,7 +49,7 @@ public class Shooter extends PIDSubsystem {
         armGyro.reset();
         
         quadEncoder = new Encoder(RobotMap.ENCODER_A_PORT , RobotMap.ENCODER_B_PORT, false ,CounterBase.EncodingType.k4X);
-      
+        
         //        quadEncoder.setMinRate(MINRATE);
 //        quadEncoder.setReverseDirection(true);
 //        quadEncoder.setDistancePerPulse(DISTANCE);
