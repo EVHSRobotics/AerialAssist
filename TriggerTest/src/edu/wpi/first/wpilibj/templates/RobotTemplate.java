@@ -8,6 +8,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -32,19 +33,34 @@ public class RobotTemplate extends SimpleRobot {
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
-        Victor windowMotor = new Victor(4);
+        Victor triggerMotor = new Victor(4);
         //A 1 B 2 
         Joystick controller = new Joystick(1);
-        boolean buttonA = controller.getRawButton(1);
-        boolean buttonB = controller.getRawButton(2);
+        //boolean buttonA = controller.getRawButton(1);
+        //boolean buttonB = controller.getRawButton(2);
+        DigitalInput limitSwitch = new DigitalInput(1);
         while(true){
             Timer.delay(0.05);
-            if(buttonA) {
-                windowMotor.set(0.6);
-            } else if (buttonB) {
-                windowMotor.set(-0.6);
+//            if(controller.getRawButton(1)) {
+//                windowMotor.set(0.8);
+//            } else if (controller.getRawButton(2)) {
+//                windowMotor.set(-0.8);
+//            } else {
+//                windowMotor.set(0);
+//            }
+            if(controller.getRawButton(1)) {
+                triggerMotor.set(-1);
+                Timer.delay(0.1);
+                while(limitSwitch.get() != false || controller.getRawButton(4)) {
+                    Timer.delay(0.05);
+                }
+                triggerMotor.set(1); 
+                while(limitSwitch.get() != false || controller.getRawButton(4)) {
+                    Timer.delay(0.05);
+                }
+                triggerMotor.set(0);
             } else {
-                windowMotor.set(0);
+                triggerMotor.set(0);
             }
         }
     }
