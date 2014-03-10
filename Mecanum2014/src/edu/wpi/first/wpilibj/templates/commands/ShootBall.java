@@ -64,18 +64,13 @@ public class ShootBall extends CommandBase {
         }
 
         if (oi.getRB()) {
-            System.out.println("button: RB");
-            shooter.launchMotor.set(0.5);
-            Timer.delay(0.05);
-            shooter.launchMotor.set(-0.5);
-            while (shooter.limitSwitch.get()) {
-                Timer.delay(0.05);
-            }
+            shooter.launchMotor.set(-0.7);
+        } else {
             shooter.launchMotor.set(0);
         }
 
 
-        Timer.delay(.2);
+        Timer.delay(.1);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -12,7 +12,7 @@ package edu.wpi.first.wpilibj.templates.commands;
 public class MecanumDrive extends CommandBase {
 
     public final double DEADBAND = .3;
-    private final double SENSITIVITY = .6;
+    private final double SENSITIVITY = 1;
     public double xValue;
     public double yValue;
     public double twist;

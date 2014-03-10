@@ -49,16 +49,18 @@ public class RobotTemplate extends SimpleRobot {
 //                windowMotor.set(0);
 //            }
             if(controller.getRawButton(1)) {
-                triggerMotor.set(-1);
-                Timer.delay(0.1);
-                while(limitSwitch.get() != false || controller.getRawButton(4)) {
-                    Timer.delay(0.05);
-                }
-                triggerMotor.set(1); 
-                while(limitSwitch.get() != false || controller.getRawButton(4)) {
-                    Timer.delay(0.05);
-                }
-                triggerMotor.set(0);
+//                triggerMotor.set(-1);
+//                Timer.delay(0.1);
+//                while(limitSwitch.get() != false || controller.getRawButton(4)) {
+//                    Timer.delay(0.05);
+//                }
+//                triggerMotor.set(1); 
+//                while(limitSwitch.get() != false || controller.getRawButton(4)) {
+//                    Timer.delay(0.05);
+//                }
+//                triggerMotor.set(0);
+                triggerMotor.set(-0.7);
+                
             } else {
                 triggerMotor.set(0);
             }
