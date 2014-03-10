@@ -17,16 +17,17 @@ public class RobotMap {
     // public static final int rangefinderPort = 1;
     // public static final int rangefinderModule = 1;
     
-    public static final int LEFT_MOTOR_BACK = 1; //1
-    public static final int LEFT_MOTOR_FRONT = 5; //4
-    public static final int RIGHT_MOTOR_BACK = 2; //2
-    public static final int RIGHT_MOTOR_FRONT = 3; //3
+    public static final int LEFT_MOTOR_BACK = 2; //1
+    public static final int LEFT_MOTOR_FRONT = 1; //4
+    public static final int RIGHT_MOTOR_BACK = 8; //2
+    public static final int RIGHT_MOTOR_FRONT = 5; //3
     
-    public static final int LEFT_SHOOT_MOTOR = 7; 
-    public static final int RIGHT_SHOOT_MOTOR = 4; 
+    public static final int LEFT_SHOOT_MOTOR = 4; 
+    public static final int RIGHT_SHOOT_MOTOR = 7; 
     public static final int ARM_MOTOR = 6;
-    public static final int LAUNCH_MOTOR = 8;
+    public static final int LAUNCH_MOTOR = 3;
     
+    public static final int ARM_GYRO_PORT = 1;
     public static final int GYRO_PORT = 2;
     
     public static final int ENCODER_A_PORT = 7;
