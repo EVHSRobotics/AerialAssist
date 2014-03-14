@@ -53,11 +53,11 @@ public class ShootBall extends CommandBase {
             System.out.println("button: X");
         } else if (oi.getY()) {
             shooter.setSetpoint(Shooter.SHOOTING2);
-            shooter.shoot(1);
+            shooter.shoot(0.9);
             System.out.println("button: Y");
         } else if (oi.getB()) {
             shooter.setSetpoint(Shooter.PASSING);
-            shooter.shoot(0.8);
+            shooter.shoot(0.85);
             System.out.println("button: B");
         } else {
             shooter.shoot(0);
