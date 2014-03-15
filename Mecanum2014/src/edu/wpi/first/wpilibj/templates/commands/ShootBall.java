@@ -5,6 +5,7 @@
  */
 package edu.wpi.first.wpilibj.templates.commands;
 
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.templates.subsystems.Shooter;
 
@@ -34,10 +35,10 @@ public class ShootBall extends CommandBase {
         //  shooter.quadEncoder.reset();
         //}
 
-        if (oi.getLB()) {
-            System.out.println("arm stop");
-            shooter.armStop();
-        }
+//        if (oi.getLB()) {
+//            System.out.println("arm stop");
+//            shooter.armStop();
+//        }
         if (oi.getStart()) {
             shooter.setSetpoint(Shooter.START);
             System.out.println("go to start");
@@ -64,11 +65,15 @@ public class ShootBall extends CommandBase {
         }
 
         if (oi.getRB()) {
-            shooter.launchMotor.set(-0.7);
+            shooter.launchMotor.set(-1);
+            shooter.launchMotor2.set(Relay.Value.kOn);
+            System.out.println("Trigger 2 forward");
+        } else if(oi.getLB()) {
+            shooter.launchMotor2.set(Relay.Value.kReverse);
         } else {
             shooter.launchMotor.set(0);
+            shooter.launchMotor2.set(Relay.Value.kOff);
         }
-
 
         Timer.delay(.1);
     }

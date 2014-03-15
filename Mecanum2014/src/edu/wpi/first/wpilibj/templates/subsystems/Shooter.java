@@ -7,7 +7,7 @@ package edu.wpi.first.wpilibj.templates.subsystems;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.templates.RobotMap;
@@ -24,6 +24,7 @@ public class Shooter extends PIDSubsystem {
     public Victor rightCim; 
     public Victor armMotor;
     public Victor launchMotor;
+    public Relay launchMotor2;
     public Encoder quadEncoder;
     public DigitalInput limitSwitch;
     public static final int 
@@ -40,6 +41,7 @@ public class Shooter extends PIDSubsystem {
         leftCim = new Victor(RobotMap.LEFT_SHOOT_MOTOR);
         rightCim = new Victor(RobotMap.RIGHT_SHOOT_MOTOR);
         launchMotor = new Victor(RobotMap.LAUNCH_MOTOR);
+        launchMotor2 = new Relay(RobotMap.LAUNCH_MOTOR_2);
         armMotor = new Victor(RobotMap.ARM_MOTOR); 
         
         limitSwitch = new DigitalInput(4);

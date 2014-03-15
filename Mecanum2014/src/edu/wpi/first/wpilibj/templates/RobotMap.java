@@ -26,6 +26,7 @@ public class RobotMap {
     public static final int RIGHT_SHOOT_MOTOR = 7; 
     public static final int ARM_MOTOR = 6;
     public static final int LAUNCH_MOTOR = 3;
+    public static final int LAUNCH_MOTOR_2 = 1;
     
     public static final int ARM_GYRO_PORT = 1;
     public static final int GYRO_PORT = 2;
