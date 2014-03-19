@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.templates.RobotMap;
@@ -26,6 +27,7 @@ public class Shooter extends PIDSubsystem {
     public Victor launchMotor;
     public Relay launchMotor2;
     public Encoder quadEncoder;
+    public Encoder triggerEncoder;
     public DigitalInput limitSwitch;
     public static final int 
             START = 0, 
@@ -33,7 +35,8 @@ public class Shooter extends PIDSubsystem {
             SHOOTING2 = 30, 
             PASSING = 25, 
             PICKUP = 5, 
-            DISTANCE = 1;
+            DISTANCE = 1, 
+            TRIGGER_SETPOINT = 5;
     public static final double TOLERANCE = 10, MINRATE = .2;
     
     public Shooter() {
@@ -47,17 +50,23 @@ public class Shooter extends PIDSubsystem {
         limitSwitch = new DigitalInput(4);
         
         quadEncoder = new Encoder(RobotMap.ENCODER_A_PORT , RobotMap.ENCODER_B_PORT, false ,CounterBase.EncodingType.k4X);
-    
+        triggerEncoder = new Encoder(RobotMap.ENCODER_2A_PORT, RobotMap.ENCODER_2B_PORT, false, CounterBase.EncodingType.k4X);        
+        
         setAbsoluteTolerance(300);
         getPIDController().setContinuous(false);
         quadEncoder.setMinRate(MINRATE);
         quadEncoder.setReverseDirection(true);
         quadEncoder.setDistancePerPulse(DISTANCE);
         quadEncoder.reset();
+        triggerEncoder.setMinRate(MINRATE);
+        triggerEncoder.setReverseDirection(true);
+        triggerEncoder.setDistancePerPulse(DISTANCE);
+        triggerEncoder.reset();
         enable();
     
         setSetpoint(START);
         quadEncoder.start();
+        triggerEncoder.start();
     }
     
     public void initDefaultCommand() {
@@ -107,5 +116,18 @@ public class Shooter extends PIDSubsystem {
     
     public void armStop() {
         setSetpoint(getPosition());
+    }
+    
+    public void setTrigger(double value) {
+        launchMotor.set(value);
+        Value relayDirection;
+        if(value > 0) {
+            relayDirection = Relay.Value.kForward;
+        } else if (value < 0) {
+            relayDirection = Relay.Value.kReverse;
+        } else {
+            relayDirection = Relay.Value.kOff;
+        }
+        launchMotor2.set(relayDirection);
     }
 }

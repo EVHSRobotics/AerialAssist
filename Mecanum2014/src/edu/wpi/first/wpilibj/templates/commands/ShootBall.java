@@ -5,9 +5,10 @@
  */
 package edu.wpi.first.wpilibj.templates.commands;
 
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.templates.subsystems.Shooter;
+import edu.wpi.first.wpilibj.templates.commands.TriggerCommand;
 
 /**
  *
@@ -65,16 +66,9 @@ public class ShootBall extends CommandBase {
         }
 
         if (oi.getRB()) {
-            shooter.launchMotor.set(-1);
-            shooter.launchMotor2.set(Relay.Value.kOn);
-            System.out.println("Trigger 2 forward");
-        } else if(oi.getLB()) {
-            shooter.launchMotor2.set(Relay.Value.kReverse);
-        } else {
-            shooter.launchMotor.set(0);
-            shooter.launchMotor2.set(Relay.Value.kOff);
-        }
-
+            Scheduler.getInstance().add(new TriggerCommand());
+        } 
+        
         Timer.delay(.1);
     }
 

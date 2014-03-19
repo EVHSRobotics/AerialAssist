@@ -33,4 +33,6 @@ public class RobotMap {
     
     public static final int ENCODER_A_PORT = 7;
     public static final int ENCODER_B_PORT = 6;
+    public static final int ENCODER_2A_PORT = 8; 
+    public static final int ENCODER_2B_PORT = 9;
 }
