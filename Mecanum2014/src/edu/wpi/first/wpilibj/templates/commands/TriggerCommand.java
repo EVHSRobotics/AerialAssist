@@ -4,7 +4,6 @@
  */
 package edu.wpi.first.wpilibj.templates.commands;
 
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.templates.subsystems.Shooter;
 
 /**
@@ -12,22 +11,26 @@ import edu.wpi.first.wpilibj.templates.subsystems.Shooter;
  * @author kevin
  */
 public class TriggerCommand extends CommandBase {
-     double direction;
-     final double DEADBAND = .5;
-     boolean done = false;   
+
+    int raw, averageRaw;
+    double volts, averageVolts;
+    double direction;
+    final double DEADBAND = .5;
+    boolean done = false;
+
     public TriggerCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
-    
+
     // Called just before this Command runs the first time
     protected void initialize() {
-        
-        while(shooter.triggerEncoder.get() < Shooter.TRIGGER_SETPOINT) {
+
+        while (shooter.potentiometer.getAverageValue() < Shooter.TRIGGER_SETPOINT) {
             shooter.setTrigger(1);
-        } 
+        }
         shooter.setTrigger(0);
-        while(shooter.triggerEncoder.get() > 0) {
+        while (shooter.potentiometer.getAverageValue() > Shooter.TRIGGER_SETPOINT_2) {
             shooter.setTrigger(-1);
         }
         shooter.setTrigger(0);
@@ -35,20 +38,20 @@ public class TriggerCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-       if (Math.abs(shooter.triggerEncoder.get()) < DEADBAND ){
-           
-        shooter.setTrigger(0);
+//        if (Math.abs(shooter.potentiometer.getAverageValue() - Shooter.TRIGGER_SETPOINT_2) < DEADBAND) {
+//
+//            shooter.setTrigger(0);
+//            done = true;
+//        }
+//        if (shooter.triggerEncoder.get() > DEADBAND) {
+//            direction = 1;
+//        }
+//        if (shooter.triggerEncoder.get() < DEADBAND) {
+//            direction = -1;
+//        }
+//        shooter.setTrigger(.6 * direction);
         done = true;
-       }
-       if (shooter.triggerEncoder.get() > DEADBAND){
-           direction = 1;
-       }
-       if (shooter.triggerEncoder.get() < DEADBAND) {
-           direction = -1;
-       }
-       shooter.setTrigger(.6*direction);
     }
-
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

@@ -4,6 +4,7 @@
  */
 package edu.wpi.first.wpilibj.templates.subsystems;
 
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -27,7 +28,8 @@ public class Shooter extends PIDSubsystem {
     public Victor launchMotor;
     public Relay launchMotor2;
     public Encoder quadEncoder;
-    public Encoder triggerEncoder;
+    //public Encoder triggerEncoder;
+    public AnalogChannel potentiometer;
     public DigitalInput limitSwitch;
     public static final int 
             START = 0, 
@@ -36,7 +38,8 @@ public class Shooter extends PIDSubsystem {
             PASSING = 25, 
             PICKUP = 5, 
             DISTANCE = 1, 
-            TRIGGER_SETPOINT = 5;
+            TRIGGER_SETPOINT = 500,
+            TRIGGER_SETPOINT_2 = 900;
     public static final double TOLERANCE = 10, MINRATE = .2;
     
     public Shooter() {
@@ -50,7 +53,8 @@ public class Shooter extends PIDSubsystem {
         limitSwitch = new DigitalInput(4);
         
         quadEncoder = new Encoder(RobotMap.ENCODER_A_PORT , RobotMap.ENCODER_B_PORT, false ,CounterBase.EncodingType.k4X);
-        triggerEncoder = new Encoder(RobotMap.ENCODER_2A_PORT, RobotMap.ENCODER_2B_PORT, false, CounterBase.EncodingType.k4X);        
+//        triggerEncoder = new Encoder(RobotMap.ENCODER_2A_PORT, RobotMap.ENCODER_2B_PORT, false, CounterBase.EncodingType.k4X);        
+        potentiometer = new AnalogChannel(2); //don't plug into port 8; clockwise positive; lowest ~475, highest ~961
         
         setAbsoluteTolerance(300);
         getPIDController().setContinuous(false);
@@ -58,15 +62,15 @@ public class Shooter extends PIDSubsystem {
         quadEncoder.setReverseDirection(true);
         quadEncoder.setDistancePerPulse(DISTANCE);
         quadEncoder.reset();
-        triggerEncoder.setMinRate(MINRATE);
-        triggerEncoder.setReverseDirection(true);
-        triggerEncoder.setDistancePerPulse(DISTANCE);
-        triggerEncoder.reset();
+//        triggerEncoder.setMinRate(MINRATE);
+//        triggerEncoder.setReverseDirection(true);
+//        triggerEncoder.setDistancePerPulse(DISTANCE);
+//        triggerEncoder.reset();
         enable();
     
         setSetpoint(START);
         quadEncoder.start();
-        triggerEncoder.start();
+//        triggerEncoder.start();
     }
     
     public void initDefaultCommand() {
