@@ -27,7 +27,7 @@ public class DriveTrain extends Subsystem {
     public Victor frontRight;// = RobotMap.driveTrainFrontRight;
     public Victor backLeft;// = RobotMap.driveTrainBackLeft;
     public Victor frontLeft;// = RobotMap.driveTrainFrontLeft;
-    public RobotDrive mecanumDrive;// = RobotMap.mecanumDrive;
+//    public RobotDrive mecanumDrive;// = RobotMap.mecanumDrive;
     public Gyro gyro;
     
     public DriveTrain(){
@@ -93,9 +93,9 @@ public void mecDrive(double x, double y, double t, double a){
     backRight.set(back_right);
     backLeft.set(-back_left); //inverts motor
      if(Math.abs(x+y+t) > 0){
-            System.out.println("FL: "+ frontLeft.get() + " BL: " +
-                backLeft.get() + " FR: " + frontRight.get() + " BR: " +
-                backRight.get());
+//            System.out.println("FL: "+ frontLeft.get() + " BL: " +
+//                backLeft.get() + " FR: " + frontRight.get() + " BR: " +
+//                backRight.get());
             }}
 }
 

@@ -66,6 +66,7 @@ public class ShootBall extends CommandBase {
         }
 
         if (oi.getRB()) {
+            System.out.println("Starting Value: " + shooter.triggerPot.getAverageValue());
             Scheduler.getInstance().add(new TriggerCommand());
         } 
         

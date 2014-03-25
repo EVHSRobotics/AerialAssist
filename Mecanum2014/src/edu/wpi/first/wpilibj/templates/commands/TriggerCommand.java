@@ -15,7 +15,7 @@ public class TriggerCommand extends CommandBase {
     int raw, averageRaw;
     double volts, averageVolts;
     double direction;
-    final double DEADBAND = .5;
+    final double DEADBAND = 5;
     boolean done = false;
 
     public TriggerCommand() {
@@ -26,31 +26,34 @@ public class TriggerCommand extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
 
-        while (shooter.potentiometer.getAverageValue() < Shooter.TRIGGER_SETPOINT) {
-            shooter.setTrigger(1);
+        while (shooter.triggerPot.getAverageValue() < Shooter.TRIGGER_END) {
+            shooter.setTrigger(-1);
+            System.out.println(shooter.triggerPot.getAverageValue());
         }
         shooter.setTrigger(0);
-        while (shooter.potentiometer.getAverageValue() > Shooter.TRIGGER_SETPOINT_2) {
-            shooter.setTrigger(-1);
+        while (shooter.triggerPot.getAverageValue() > Shooter.TRIGGER_START) {
+            shooter.setTrigger(.7);
+            
+            System.out.println(shooter.triggerPot.getAverageValue());
         }
         shooter.setTrigger(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//        if (Math.abs(shooter.potentiometer.getAverageValue() - Shooter.TRIGGER_SETPOINT_2) < DEADBAND) {
-//
-//            shooter.setTrigger(0);
-//            done = true;
-//        }
-//        if (shooter.triggerEncoder.get() > DEADBAND) {
-//            direction = 1;
-//        }
-//        if (shooter.triggerEncoder.get() < DEADBAND) {
-//            direction = -1;
-//        }
-//        shooter.setTrigger(.6 * direction);
-        done = true;
+        if (Math.abs(shooter.triggerPot.getAverageValue() - Shooter.TRIGGER_START) < DEADBAND) {
+
+            shooter.setTrigger(0);
+            done = true;
+        }
+        if (shooter.triggerPot.getAverageValue() > DEADBAND) {
+            direction = 1;
+        }
+        if (shooter.triggerPot.getAverageValue() < -DEADBAND) {
+            direction = -1;
+        }
+        shooter.setTrigger(.6 * direction);
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()

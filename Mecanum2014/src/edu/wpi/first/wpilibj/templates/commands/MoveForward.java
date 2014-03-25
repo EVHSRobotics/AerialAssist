@@ -21,10 +21,7 @@ public class MoveForward extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        driveTrain.backLeft.set(.3);
-        driveTrain.backRight.set(-.3);
-        driveTrain.frontLeft.set(.3);
-        driveTrain.frontRight.set(-.3);
+        driveTrain.mecDrive(0, -.8, 0, 0);
         setTimeout(.5);
     }
 
@@ -40,18 +37,13 @@ public class MoveForward extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-                driveTrain.backLeft.set(0);
-        driveTrain.backRight.set(0);
-        driveTrain.frontLeft.set(0);
-        driveTrain.backRight.set(0);
+        driveTrain.mecDrive(0, 0, 0, 0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-                driveTrain.backLeft.set(0);
-        driveTrain.backRight.set(0);
-        driveTrain.frontLeft.set(0);
-        driveTrain.backRight.set(0);
+        
+        driveTrain.mecDrive(0, 0, 0, 0);
     }
 }

@@ -36,9 +36,9 @@ public class MecanumDrive extends CommandBase {
 //            yValue = SENSITIVITY*fixDeadBand(oi.getJoystick().getY(), DEADBAND);
 //    xValue = SENSITIVITY*fixDeadBand(oi.getJoystick().getX(), DEADBAND);
 //    twist = .6*SENSITIVITY*fixDeadBand(oi.getJoystick().getZ(), DEADBAND); 
-
-        System.out.println("X: " + oi.getLeftX());
-        System.out.println("Y: " + oi.getLeftY());
+//
+//        System.out.println("X: " + oi.getLeftX());
+//        System.out.println("Y: " + oi.getLeftY());
         yValue = SENSITIVITY * fixDeadBand(oi.getLeftY(), DEADBAND);
         xValue = SENSITIVITY * fixDeadBand(oi.getLeftX(), DEADBAND);
         twist = .6 * SENSITIVITY * fixDeadBand(oi.getTriggers(), DEADBAND); //double deadband
@@ -59,15 +59,15 @@ public class MecanumDrive extends CommandBase {
         //right - 
 
         //twist, xValue, yValue
-
-        if (Math.abs(xValue + yValue + twist) > 0) {
-            System.out.println("GYRO: " + angle);
-            System.out.println("X: " + xValue + " Y: " + yValue + " T: " + twist);
-//        System.out.println("FL: "+ driveTrain.frontLeft.get() + " BL: " +
-//                driveTrain.backLeft.get() + " FR: " + driveTrain.frontRight.get() + " BR: " +
-//                driveTrain.backRight.get());
-
-        }
+//
+//        if (Math.abs(xValue + yValue + twist) > 0) {
+//            System.out.println("GYRO: " + angle);
+//            System.out.println("X: " + xValue + " Y: " + yValue + " T: " + twist);
+////        System.out.println("FL: "+ driveTrain.frontLeft.get() + " BL: " +
+////                driveTrain.backLeft.get() + " FR: " + driveTrain.frontRight.get() + " BR: " +
+////                driveTrain.backRight.get());
+//
+//        }
 
 
 //    Robot.oi.getJoystick().getTwist());
