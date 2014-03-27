@@ -39,9 +39,10 @@ public class Shooter extends PIDSubsystem {
             PASSING = 25, 
             PICKUP = 5, 
             DISTANCE = 1, 
-            TRIGGER_START = 189, //Encoder axle from inside turning clockwise is positive
+            TRIGGER_START = 189, //Encoder axle from inside turning clockwise is positive 771?
             TRIGGER_END = 959; //other pot 500-900
     public static final double TOLERANCE = 10, MINRATE = .2;
+    public boolean triggerRunning;
     
     public Shooter() {
         super("Shooter" , 1, .1, 0); //PID
@@ -81,16 +82,16 @@ public class Shooter extends PIDSubsystem {
     }
     
     public void usePIDOutput(double output){
-        System.out.println("O" +output);
-        if (Math.abs(getSetpoint() - armPot.getAverageValue()) > TOLERANCE){
-           // if(output != 0) System.out.println("O: " + output);
-            //armMotor.set(getSign(output) * .3);
-            armMotor.set(output * .6);
-           // System.out.println("PID set" + armMotor.get());   
-        }
-        else {
-            armMotor.set(0);
-        }
+//        System.out.println("O" +output);
+//        if (Math.abs(getSetpoint() - armPot.getAverageValue()) > TOLERANCE){
+//           // if(output != 0) System.out.println("O: " + output);
+//            //armMotor.set(getSign(output) * .3);
+//            armMotor.set(output * .6);
+//           // System.out.println("PID set" + armMotor.get());   
+//        }
+//        else {
+//            armMotor.set(0);
+//        }
 
     }
     
