@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.templates.subsystems.Shooter;
-import edu.wpi.first.wpilibj.templates.commands.TriggerCommand;
 
 /**
  *
@@ -98,7 +97,7 @@ public class ShootBall extends CommandBase {
             System.out.println("RB Pressed");
         }    
         else if (oi.getLB()){
-            shooter.launchMotor.set(.7);
+            shooter.launchMotor.set(armSpeed);
             
             System.out.println("LB Pressed");
         }

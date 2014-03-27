@@ -65,10 +65,10 @@ public void mecDrive(double x, double y, double t, double a){
     double temp = y*Math.cos(Math.toRadians(a)) - x*Math.sin(Math.toRadians(a));
     x = y*Math.sin(Math.toRadians(a)) + x*Math.cos(Math.toRadians(a));
     y = temp;
-    if(Math.abs(x+y+t) > 0){
-        System.out.println("X: " +x + "Y: " + y);
-    }
-    
+//    if(Math.abs(x+y+t) > 0){
+//        System.out.println("X: " +x + "Y: " + y);
+//    }
+//    
     double front_left = y + t + x;
     double front_right = y - t - x;
     double back_left = y + t - x;
