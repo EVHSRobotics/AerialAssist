@@ -7,15 +7,15 @@ package edu.wpi.first.wpilibj.templates;
  * floating around.
  */
 public class RobotMap {    
-    public static final int LEFT_MOTOR_BACK = 2; //1
-    public static final int LEFT_MOTOR_FRONT = 1; //4
-    public static final int RIGHT_MOTOR_BACK = 8; //2
-    public static final int RIGHT_MOTOR_FRONT = 5; //3
+    public static final int LEFT_MOTOR_BACK = 2; //2
+    public static final int LEFT_MOTOR_FRONT = 1;
+    public static final int RIGHT_MOTOR_BACK = 8;//8 
+    public static final int RIGHT_MOTOR_FRONT = 5; 
     
     public static final int LEFT_SHOOT_MOTOR = 3; // I believe this polarity switched
-    public static final int RIGHT_SHOOT_MOTOR = 7; 
-    public static final int ARM_MOTOR = 4;
-    public static final int LAUNCH_MOTOR = 6; //POLARITY MUST BE SWITCHED
+    public static final int RIGHT_SHOOT_MOTOR = 7;//7 
+    public static final int ARM_MOTOR = 4; //4
+    public static final int LAUNCH_MOTOR = 6; //POLARITY MUST BE SWITCHED //6
 //    public static final int LAUNCH_MOTOR_2 = 1;
 //    
 //    public static final int ARM_GYRO_PORT = 1;

@@ -18,23 +18,23 @@ public class TriggerCommand extends CommandBase {
     double direction;
     final double DEADBAND = 10;
     boolean done = false;
-    double runTime = 1;
+    double fTime = 1, bTime = 1;
 
-    public TriggerCommand(double time) {
+    public TriggerCommand(double fT, double bT) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        runTime = time;
+        fTime = fT;
+        bTime = bT;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        shooter.triggerRunning  = true;
         System.out.println("Trigger Forward");
         shooter.setTrigger(-1);
-        Timer.delay(runTime);
+        Timer.delay(fTime);
         System.out.println("Trigger Backward");
         shooter.setTrigger(1);
-        Timer.delay(runTime);
+        Timer.delay(bTime);
         System.out.println("Trigger Finished");
         shooter.setTrigger(0);
         shooter.triggerRunning = false;

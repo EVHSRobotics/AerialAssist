@@ -16,8 +16,10 @@ import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
  */
 public class Vision extends CommandBase {
     NetworkTable server;
+    Timer timer;
     boolean shot;
     double count;
+    double distance;
     public Vision() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -28,29 +30,40 @@ public class Vision extends CommandBase {
          server = NetworkTable.getTable("RoborealmData");
          shot = false;
          count = 0;
+         timer = new Timer();
+        timer.start();
+         
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        	Timer.delay(.5);
-                count ++;
-	try
+        count++;
+	
+        try
 	{
             String s = server.getString("Triangle");
+            distance = server.getNumber("Distance");
             if (s.equals("True")){
                 //Scheduler.getInstance().add(new ShootBall());
-                System.out.println("Shoot");
-                shot = true;
+                Timer.delay(.2);
+                if (s.equals("True")){
+                  System.out.println("Shoot");
+                shot = true;  
+                }
             }
             System.out.println(server.getString("Triangle"));
                         
 	}
+        
 	catch (TableKeyNotDefinedException ex)
 	{
             System.out.println("Error");
 	}
         
-        if (count > 12){
+        System.out.println("Count " + count);
+        System.out.println("Time " + timer.get());
+        System.out.println("Distance " + distance);
+        if (timer.get() > 5){
                    
                 //Scheduler.getInstance().add(new ShootBall());
                 System.out.println("Shoot");

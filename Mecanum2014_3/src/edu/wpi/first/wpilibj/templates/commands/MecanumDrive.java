@@ -36,16 +36,27 @@ public class MecanumDrive extends CommandBase {
 //            yValue = SENSITIVITY*fixDeadBand(oi.getJoystick().getY(), DEADBAND);
 //    xValue = SENSITIVITY*fixDeadBand(oi.getJoystick().getX(), DEADBAND);
 //    twist = .6*SENSITIVITY*fixDeadBand(oi.getJoystick().getZ(), DEADBAND); 
-//
+////
 //        System.out.println("X: " + oi.getLeftX());
 //        System.out.println("Y: " + oi.getLeftY());
-        yValue = SENSITIVITY * fixDeadBand(oi.getLeftY(), DEADBAND);
+//        System.out.println("T: " + oi.getTriggers());
+        yValue = SENSITIVITY * fixDeadBand(oi.getLeftY(), DEADBAND); 
         xValue = SENSITIVITY * fixDeadBand(oi.getLeftX(), DEADBAND);
+        
+        if (yValue < 0 ){
+            yValue *=1.08;//multiplied by 1.08 because joystick forward doesn't send full signal
+        }
+        if (yValue < -1){
+            yValue = -1;
+        }
+        
         twist = .7 * SENSITIVITY * fixDeadBand(oi.getTriggers(), DEADBAND); //double deadband
         angle = driveTrain.gyro.getAngle();
+        //System.out.println("A: " +angle);
 
         if (oi.getBack()) {
             driveTrain.gyro.reset();
+            System.out.println("Gyro Reset");
         }
         driveTrain.mecDrive(xValue, -yValue, -twist, -angle);
 //   driveTrain.mecanumDrive.mecanumDrive_Cartesian(-xValue, 

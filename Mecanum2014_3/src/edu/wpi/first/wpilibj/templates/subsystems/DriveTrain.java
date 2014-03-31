@@ -65,10 +65,10 @@ public void mecDrive(double x, double y, double t, double a){
     double temp = y*Math.cos(Math.toRadians(a)) - x*Math.sin(Math.toRadians(a));
     x = y*Math.sin(Math.toRadians(a)) + x*Math.cos(Math.toRadians(a));
     y = temp;
-//    if(Math.abs(x+y+t) > 0){
-//        System.out.println("X: " +x + "Y: " + y);
-//    }
-//    
+    if(Math.abs(x+y+t) > 0){
+        System.out.println("DriveX: " +x + " DriveY: " + y);
+    }
+    
     double front_left = y + t + x;
     double front_right = y - t - x;
     double back_left = y + t - x;
@@ -92,10 +92,10 @@ public void mecDrive(double x, double y, double t, double a){
     frontRight.set(front_right);
     backRight.set(back_right);
     backLeft.set(-back_left); //inverts motor
-     if(Math.abs(x+y+t) > 0){
+//     if(Math.abs(x+y+t) > 0){
 //            System.out.println("FL: "+ frontLeft.get() + " BL: " +
 //                backLeft.get() + " FR: " + frontRight.get() + " BR: " +
 //                backRight.get());
-            }}
+//            }
 }
-
+}

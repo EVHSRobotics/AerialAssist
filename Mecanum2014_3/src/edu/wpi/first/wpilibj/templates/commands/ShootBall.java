@@ -16,10 +16,11 @@ import edu.wpi.first.wpilibj.templates.subsystems.Shooter;
  */
 public class ShootBall extends CommandBase {
     NetworkTable values;
-    double pickUpSpeed = .6;
+    double pickUpSpeed = .8;
     double shootingSpeed = 1;
-    double triggerTime = 1;
-    double armSpeed = 1;
+    double fTime = 1;
+    double bTime = .5;
+    double armSpeed = .6;
     public final double DEADBAND = 0.1;
 
     public ShootBall() {
@@ -34,7 +35,8 @@ public class ShootBall extends CommandBase {
          values = NetworkTable.getTable("SmartDashboard");
          values.putNumber("PickUp", pickUpSpeed);
          values.putNumber("Shooting", shootingSpeed);
-         values.putNumber("TriggerTime", triggerTime);
+         values.putNumber("TriggerF", fTime);
+         values.putNumber("TriggerB" , bTime);
          values.putNumber("ArmSpeed", armSpeed);
     }
 
@@ -52,12 +54,13 @@ public class ShootBall extends CommandBase {
         if (oi.getStart()) {
 //            shooter.setSetpoint(Shooter.START);
 //            System.out.println("go to start");
-            pickUpSpeed = values.getNumber("PickUp", .6);
-            shootingSpeed = values.getNumber("Shooting", 1);
-            triggerTime = values.getNumber("TriggerTime" , 1);
-            armSpeed = values.getNumber("ArmSpeed" , 1);
-            System.out.println("P: " + pickUpSpeed + " S: " + shootingSpeed + " T: " + triggerTime
-            + " A: " + armSpeed);
+            pickUpSpeed = values.getNumber("PickUp", pickUpSpeed);
+            shootingSpeed = values.getNumber("Shooting", shootingSpeed);
+            fTime = values.getNumber("TriggerF" , fTime);
+            bTime = values.getNumber("TriggerB", bTime);
+            armSpeed = values.getNumber("ArmSpeed" , armSpeed);
+            System.out.println("P: " + pickUpSpeed + " S: " + shootingSpeed + " TF: " + fTime + " TB:"
+                    + bTime     + " A: " + armSpeed);
         }
 //            shooter.setSetpoint(Shooter.START);
 //            System.out.println("go to start");
@@ -77,10 +80,10 @@ public class ShootBall extends CommandBase {
         { if (oi.getY()) {
 //            shooter.setSetpoint(Shooter.SHOOTING2);
 //            shooter.shoot(0.9);
-            shooter.armMotor.set(armSpeed);
+            shooter.armMotor.set(-armSpeed);
             System.out.println("button: Y");
         } else if (oi.getB()) {
-            shooter.armMotor.set(-armSpeed);
+            shooter.armMotor.set(armSpeed);
 //            shooter.setSetpoint(Shooter.PASSING);
 //            shooter.shoot(0.85);
             System.out.println("button: B");
@@ -89,10 +92,11 @@ public class ShootBall extends CommandBase {
             shooter.armMotor.set(0);
         }}
 
-        {if (oi.getRB()) {
+        {if (oi.getRB() && !(shooter.triggerRunning)) {
 ////            
 //////            System.out.println("Starting Pot: " + shooter.triggerPot.getAverageValue());
-            Scheduler.getInstance().add(new TriggerCommand(triggerTime));
+           shooter.triggerRunning = true;
+            Scheduler.getInstance().add(new TriggerCommand(fTime, bTime));
 //            shooter.launchMotor.set(-1);
             System.out.println("RB Pressed");
         }    
@@ -105,7 +109,7 @@ public class ShootBall extends CommandBase {
             shooter.launchMotor.set(0);
         }}
         
-        Timer.delay(.1);
+        Timer.delay(.05);
     }
 
     // Make this return true when this Command no longer needs to run execute()

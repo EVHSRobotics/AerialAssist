@@ -20,7 +20,7 @@ public class ShootBall extends CommandBase {
     double pickUpSpeed = .6;
     double shootingSpeed = 1;
     double triggerTime = 1;
-    double armSpeed = 1;
+    double armSpeed = .7;
     public final double DEADBAND = 0.1;
 
     public ShootBall() {
