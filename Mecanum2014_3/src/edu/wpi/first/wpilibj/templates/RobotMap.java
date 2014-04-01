@@ -20,7 +20,7 @@ public class RobotMap {
 //    
 //    public static final int ARM_GYRO_PORT = 1;
     public static final int GYRO_PORT = 2;
-    public static final int ARM_POT_PORT = 5;
+    public static final int ARM_POT_PORT = 4;
     public static final int TRIGGER_POT_PORT = 3;
 //    
 //    public static final int ENCODER_A_PORT = 7;
