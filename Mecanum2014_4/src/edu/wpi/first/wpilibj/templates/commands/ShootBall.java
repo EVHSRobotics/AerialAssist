@@ -8,7 +8,7 @@ package edu.wpi.first.wpilibj.templates.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.templates.subsystems.Shooter;
+import edu.wpi.first.wpilibj.templates.subsystems.Arm;
 
 /**
  *
@@ -66,11 +66,13 @@ public class ShootBall extends CommandBase {
 //            System.out.println("go to start");
 
         {if (oi.getA()) {
-            shooter.setSetpoint(Shooter.PICKUP);
+            //shooter.setSetpoint(Shooter.PICKUP);
+            Scheduler.getInstance().add(new MoveArm(Arm.PICKUP));
             shooter.shoot(-pickUpSpeed);
             System.out.println("button: A");
         } else if (oi.getX()) {
-            shooter.setSetpoint(Shooter.SHOOTING1);
+           // shooter.setSetpoint(Shooter.SHOOTING1);
+            Scheduler.getInstance().add(new MoveArm(Arm.SHOOTING1));
             shooter.shoot(shootingSpeed);
             System.out.println("button: X");
         }
@@ -89,7 +91,7 @@ public class ShootBall extends CommandBase {
             System.out.println("button: B");
         }
         else{
-            shooter.armMotor.set(0);
+            //shooter.armMotor.set(0);
         }}
 
         {if (oi.getRB() && !(shooter.triggerRunning)) {
@@ -106,7 +108,7 @@ public class ShootBall extends CommandBase {
             System.out.println("LB Pressed");
         }
         else {
-            shooter.launchMotor.set(0);
+           // shooter.launchMotor.set(0);
         }}
         
         Timer.delay(.05);
