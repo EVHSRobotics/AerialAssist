@@ -33,13 +33,6 @@ public class MecanumDrive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//            yValue = SENSITIVITY*fixDeadBand(oi.getJoystick().getY(), DEADBAND);
-//    xValue = SENSITIVITY*fixDeadBand(oi.getJoystick().getX(), DEADBAND);
-//    twist = .6*SENSITIVITY*fixDeadBand(oi.getJoystick().getZ(), DEADBAND); 
-////
-//        System.out.println("X: " + oi.getLeftX());
-//        System.out.println("Y: " + oi.getLeftY());
-//        System.out.println("T: " + oi.getTriggers());
         yValue = SENSITIVITY * fixDeadBand(oi.getLeftY(), DEADBAND); 
         xValue = SENSITIVITY * fixDeadBand(oi.getLeftX(), DEADBAND);
         
@@ -59,29 +52,7 @@ public class MecanumDrive extends CommandBase {
             System.out.println("Gyro Reset");
         }
         driveTrain.mecDrive(xValue, -yValue, -twist, angle);
-//   driveTrain.mecanumDrive.mecanumDrive_Cartesian(-xValue, 
-//           -yValue, -twist,angle); //x,y,rotation,gyroAngle
-//     driveTrain.mecanumDrive.mecanumDrive_Polar(-SENSITIVITY*fixDeadBand(oi.getJoystick().getMagnitude(),
-// DEADBAND), -SENSITIVITY*fixDeadBand( oi.getJoystick().getDirectionDegrees(),DEADBAND), -SENSITIVITY*
-//         fixDeadBand(oi.getJoystick().getTwist(), DEADBAND*2));
 
-        //forward - left back (yValue negative)
-        //backward - right forward
-        //right - 
-
-        //twist, xValue, yValue
-//
-//        if (Math.abs(xValue + yValue + twist) > 0) {
-//            System.out.println("GYRO: " + angle);
-//            System.out.println("X: " + xValue + " Y: " + yValue + " T: " + twist);
-////        System.out.println("FL: "+ driveTrain.frontLeft.get() + " BL: " +
-////                driveTrain.backLeft.get() + " FR: " + driveTrain.frontRight.get() + " BR: " +
-////                driveTrain.backRight.get());
-//
-//        }
-
-
-//    Robot.oi.getJoystick().getTwist());
     }
 
     // Make this return true when this Command no longer needs to run execute()

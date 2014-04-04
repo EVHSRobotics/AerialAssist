@@ -28,12 +28,8 @@ public class Shooter extends Subsystem {
     public Victor rightCim;
     public Victor armMotor;
     public Victor launchMotor;
-   // public Relay launchMotor2;
- //   public Encoder quadEncoder;
-    //public Encoder triggerEncoder;
     public AnalogChannel triggerPot;
     public AnalogChannel armPot;
-  //  public DigitalInput limitSwitch;
     public static final int 
             TRIGGER_START = 73, //Encoder axle from inside turning clockwise is positive 771?
             TRIGGER_END = 720; //other pot 500-900
@@ -44,38 +40,16 @@ public class Shooter extends Subsystem {
             newTriggerReading, numberOfTriggerCycles;
 
     public Shooter() {
-        //super("Shooter", 1, .1, 0); //PID
         leftCim = new Victor(RobotMap.LEFT_SHOOT_MOTOR);
         rightCim = new Victor(RobotMap.RIGHT_SHOOT_MOTOR);
         launchMotor = new Victor(RobotMap.LAUNCH_MOTOR);
-//        launchMotor2 = new Relay(RobotMap.LAUNCH_MOTOR_2);
-        
-
-       // limitSwitch = new DigitalInput(4);
-
-
-//        quadEncoder = new Encoder(RobotMap.ENCODER_A_PORT , RobotMap.ENCODER_B_PORT, false ,CounterBase.EncodingType.k4X);
-//        triggerEncoder = new Encoder(RobotMap.ENCODER_2A_PORT, RobotMap.ENCODER_2B_PORT, false, CounterBase.EncodingType.k4X);        
+     
         triggerPot = new AnalogChannel(RobotMap.TRIGGER_POT_PORT); //don't plug into port 8; clockwise positive; lowest ~475, highest ~961
         initialTriggerPos = triggerPot.getAverageValue();
         System.out.println("Initial Trigger Position:" + initialTriggerPos);
         oldTriggerReading = triggerPot.getAverageValue();
         numberOfTriggerCycles = 0;
-//        setAbsoluteTolerance(300);
-//        getPIDController().setContinuous(false);
-//        enable();
-//        setSetpoint(START);
-//        quadEncoder.setMinRate(MINRATE);
-//        quadEncoder.setReverseDirection(true);
-//        quadEncoder.setDistancePerPulse(DISTANCE);
-//        quadEncoder.reset();
-//        triggerEncoder.setMinRate(MINRATE);
-//        triggerEncoder.setReverseDirection(true);
-//        triggerEncoder.setDistancePerPulse(DISTANCE);
-//        triggerEncoder.reset();
 
-//        quadEncoder.start();
-//        triggerEncoder.start();
     }
 
     public void initDefaultCommand() {
@@ -84,27 +58,7 @@ public class Shooter extends Subsystem {
         setDefaultCommand(new ControlShooter());
     }
 
-    public void usePIDOutput(double output) { 
-////        System.out.println("O: " +output);
-////        System.out.println("Setpoint: " + getSetpoint()+ " Value:" + armPot.getAverageValue() +
-////                 " Moving: " +(Math.abs(getSetpoint() - armPot.getAverageValue()) > TOLERANCE) );
-//        
-//        System.out.println("Difference:" + Math.abs(getSetpoint() - position));
-//        if (Math.abs(getSetpoint() - position) > TOLERANCE){
-//           // if(output != 0) System.out.println("O: " + output);
-//            //armMotor.set(getSign(output) * .3);
-//            armMotor.set(output );
-//            //System.out.println("PID set " + armMotor.get());   
-//        }
-//        else {
-//            armMotor.set(0);
-//        }
 
-    }
-    protected double returnPIDInput(){
-        return 0;
-    }
-    
 
     
     public double returnTriggerPosition() {
@@ -151,21 +105,9 @@ public class Shooter extends Subsystem {
         rightCim.set(-speed);
     }
 
-//    public void armStop() {
-//        setSetpoint(getPosition());
-//    }
 
     public void setTrigger(double value) {
         launchMotor.set(value);
-//        Value relayDirection;
-//        if(value > 0) {
-//            relayDirection = Relay.Value.kForward;
-//        } else if (value < 0) {
-//            relayDirection = Relay.Value.kReverse;
-//        } else {
-//            relayDirection = Relay.Value.kOff;
-//        }
-//        launchMotor2.set(relayDirection);
     }
 
 }

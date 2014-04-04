@@ -51,8 +51,6 @@ public Victor armMotor;
         }
         position = 960 * numberOfArmCycles + newArmReading;
         oldArmReading = newArmReading;
-        //System.out.println("P: " +position);
-        //System.out.println("Position: " + position + " Reading:" +newArmReading);
         return position; 
 
     }

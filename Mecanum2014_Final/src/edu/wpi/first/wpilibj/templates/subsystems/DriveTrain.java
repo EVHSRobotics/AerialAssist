@@ -27,7 +27,6 @@ public class DriveTrain extends Subsystem {
     public Victor frontRight;// = RobotMap.driveTrainFrontRight;
     public Victor backLeft;// = RobotMap.driveTrainBackLeft;
     public Victor frontLeft;// = RobotMap.driveTrainFrontLeft;
-//    public RobotDrive mecanumDrive;// = RobotMap.mecanumDrive;
     public Gyro gyro;
     public double driveTime = 2.5;
             public boolean autoRunning;
@@ -37,10 +36,6 @@ public class DriveTrain extends Subsystem {
         frontRight = new Victor(RobotMap.RIGHT_MOTOR_FRONT);
         backLeft = new Victor(RobotMap.LEFT_MOTOR_BACK);
         frontLeft = new Victor(RobotMap.LEFT_MOTOR_FRONT);
-  //      mecanumDrive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
-        
-//        mecanumDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-//        mecanumDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
         gyro = new Gyro(RobotMap.GYRO_PORT);
     }
     
@@ -95,10 +90,5 @@ public void mecDrive(double x, double y, double t, double a){
     frontRight.set(front_right);
     backRight.set(back_right);
     backLeft.set(-back_left); //inverts motor
-//     if(Math.abs(x+y+t) > 0){
-//            System.out.println("FL: "+ frontLeft.get() + " BL: " +
-//                backLeft.get() + " FR: " + frontRight.get() + " BR: " +
-//                backRight.get());
-//            }
 }
 }
