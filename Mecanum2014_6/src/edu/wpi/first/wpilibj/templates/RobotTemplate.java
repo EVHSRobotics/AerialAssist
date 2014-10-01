@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.commands.Autonomous;
 
@@ -32,7 +33,9 @@ public class RobotTemplate extends IterativeRobot {
      */
     public void robotInit() {
         // instantiate the command used for the autonomous period
-               autonomousCommand = new Autonomous();
+        autonomousCommand = new Autonomous();
+        NetworkTable smartDashboard = NetworkTable.getTable("SmartDashboard");
+        smartDashboard.putNumber("autonomousChoice", 0);
         // Initialize all subsystems
         CommandBase.init();
     }

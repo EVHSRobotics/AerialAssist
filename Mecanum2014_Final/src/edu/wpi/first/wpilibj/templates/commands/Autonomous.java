@@ -31,14 +31,10 @@ public class Autonomous extends CommandBase {
          shot = false;
          count = 0;
          timer = new Timer();
-        timer.start();                   
-        Scheduler.getInstance().add(new ShootBall());
-        System.out.println("Shoot");
-        shot = true;   
-        Timer.delay(1);
-        if (shot){
-            Scheduler.getInstance().add(new MoveForward(driveTrain.driveTime));
-        }
+        timer.start();
+        Scheduler.getInstance().add(new MoveandShoot());
+
+
          
     }
 
@@ -49,7 +45,7 @@ public class Autonomous extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return shot;
+        return true;
     }
 
     // Called once after isFinished returns true

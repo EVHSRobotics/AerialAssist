@@ -45,13 +45,13 @@ public class MecanumDrive extends CommandBase {
         
         twist = .7 * SENSITIVITY * fixDeadBand(oi.getTriggers(), DEADBAND); //double deadband
         angle = driveTrain.gyro.getAngle();
-        System.out.println("A: " +angle);
+        //System.out.println("A: " +angle);
 
         if (oi.getBack()) {
             driveTrain.gyro.reset();
             System.out.println("Gyro Reset");
         }
-        driveTrain.mecDrive(xValue, -yValue, -twist, angle);
+        driveTrain.mecDrive(xValue, -yValue, -twist, 0); //replace 0 with angle if using gyro
 
     }
 

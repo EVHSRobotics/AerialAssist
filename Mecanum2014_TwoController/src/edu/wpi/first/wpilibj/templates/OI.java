@@ -2,6 +2,8 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -43,9 +45,14 @@ public class OI {
     
     public Joystick controller1;
     public Joystick controller2;
+    Button button1_2, button2_2, button3_2, button4_2;
     public OI() {
         controller1 = new Joystick(1);
         controller2 = new Joystick(2);
+        button1_2 = new JoystickButton(controller2,1);
+        button2_2= new JoystickButton(controller2,2);
+        button3_2= new JoystickButton(controller2,3);
+        button4_2 = new JoystickButton(controller2, 4);
     }
     
     public Joystick getJoystick() {
@@ -75,23 +82,26 @@ public class OI {
     }
     
     public boolean get1_2(){
-        return controller2.getButton(1);
+        return button1_2.get();
+    }
+        public boolean get2_2() {
+        return button2_2.get();
+    }
+    public boolean get3_2() {
+        return button3_2.get();
+    }
+    public boolean get4_2() {
+        return button4_2.get();
     }
     public boolean getB() {
         return controller1.getRawButton(2);
     }
-    public boolean get3_2() {
-        return controller2.getButton(3);
-    }
+
     public boolean getY() {
         return controller1.getRawButton(4);
     }
-    public boolean getLB_2() {
-        return controller2.getRawButton(5);
-    }
-    public boolean get2_2() {
-        return controller2.getButton(6);
-    }
+
+
     public boolean getBack() {
         return controller1.getRawButton(7);
     }
