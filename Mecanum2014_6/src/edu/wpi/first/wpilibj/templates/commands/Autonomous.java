@@ -15,11 +15,9 @@ import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
  * @author Justin
  */
 public class Autonomous extends CommandBase {
-    NetworkTable server;
-    Timer timer;
-    boolean shot;
-    double count;
-    double distance;
+    NetworkTable smartDashboard;
+    int autonomousChoice;
+    
     public Autonomous() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -27,19 +25,11 @@ public class Autonomous extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-         server = NetworkTable.getTable("RoborealmData");
-         shot = false;
-         count = 0;
-         timer = new Timer();
-        timer.start();                   
-        Scheduler.getInstance().add(new ShootBall());
-        System.out.println("Shoot");
-        shot = true;   
-        Timer.delay(1);
-        if (shot){
-            Scheduler.getInstance().add(new MoveForward(driveTrain.driveTime));
-        }
+         smartDashboard = NetworkTable.getTable("SmartDashboard");
          
+         autonomousChoice = (int) smartDashboard.getNumber("autonomousChoice", 0);
+                  
+         executeAuto(autonomousChoice);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -49,7 +39,7 @@ public class Autonomous extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return shot;
+        return true;
     }
 
     // Called once after isFinished returns true
@@ -59,5 +49,31 @@ public class Autonomous extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    }
+    
+    
+    protected void executeAuto(int autoNum) {
+        switch(autoNum) {
+            case AutoId.NOTHING: 
+                break; 
+            case AutoId.MOVE_AND_SHOOT: 
+                Scheduler.getInstance().add(new MoveandShoot());
+                break; 
+            case AutoId.MOVE:
+                Scheduler.getInstance().add(new MoveForward());
+                break;
+            case AutoId.SHOOT: 
+                Scheduler.getInstance().add(new ShootBall());
+                break;
+            default:
+                break; 
+        }
+    }
+    
+    public static final class AutoId {
+        public static final int NOTHING = 0;
+        public static final int MOVE_AND_SHOOT = 10; 
+        public static final int MOVE = 11;
+        public static final int SHOOT = 12;
     }
 }

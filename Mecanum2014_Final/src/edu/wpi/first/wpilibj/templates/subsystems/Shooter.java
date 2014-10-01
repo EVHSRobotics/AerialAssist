@@ -31,8 +31,8 @@ public class Shooter extends Subsystem {
     public AnalogChannel triggerPot;
     public AnalogChannel armPot;
     public static final int 
-            TRIGGER_START = 73, //Encoder axle from inside turning clockwise is positive 771?
-            TRIGGER_END = 720; //other pot 500-900
+            TRIGGER_START = 100, //Encoder axle from inside turning clockwise is positive 771?
+            TRIGGER_END = 900; //other pot 500-900
     public int initialTriggerPos;
     public static final double TOLERANCE = 50, MINRATE = .2;
     public boolean triggerRunning;

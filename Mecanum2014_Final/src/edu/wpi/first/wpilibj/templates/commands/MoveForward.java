@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  */
 public class MoveForward extends CommandBase {
     double forwardTime = driveTrain.driveTime;
+    public MoveForward(){
+        
+    }
     public MoveForward(double time) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -21,10 +24,10 @@ public class MoveForward extends CommandBase {
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
+     protected void initialize() {
         driveTrain.autoRunning = true;
-        driveTrain.mecDrive(0, -1, 0, 0);
-        setTimeout(forwardTime);
+        driveTrain.mecDrive(0, .8, 0, 0);
+        Timer.delay(1.5);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -34,7 +37,7 @@ public class MoveForward extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return true;
     }
 
     // Called once after isFinished returns true

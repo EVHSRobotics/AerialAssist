@@ -23,13 +23,16 @@ public class ShootBall extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
         count = 0;
-        Scheduler.getInstance().add(new MoveArm(Arm.SHOOTING1));
+        //Scheduler.getInstance().add(new MoveArm(Arm.SHOOTING1));
+       // arm.armMotor.set(.7);
+        //Timer.delay(.3);
+          arm.armMotor.set(0);
         shooter.shoot(1);
-        Timer.delay(.5);
-        while((Arm.armMoving) && (count < 100)){
-            Timer.delay(.05);
-            count++;
-        }
+        Timer.delay(1.5);
+//        while((Arm.armMoving) && (count < 100)){
+//            Timer.delay(.05);
+//            count++;
+//        }
         Scheduler.getInstance().add(new TriggerCommand());
         Timer.delay(2);
     }

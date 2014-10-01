@@ -44,10 +44,10 @@ public class ControlShooter extends CommandBase {
         }
 
         {
-            if (oi.get1_2()) {
+            if (oi.get3_2()) {
                 shooter.shoot(-pickUpSpeed);
                 System.out.println("button: A");
-            } else if (oi.get3_2()) {
+            } else if (oi.get1_2()) {
                 shooter.shoot(shootingSpeed);
                 System.out.println("button: X");
             } else {
@@ -60,7 +60,7 @@ public class ControlShooter extends CommandBase {
         }
         {
             if (Math.abs(fixDeadBand(oi.getLeftY_2(), DEADBAND)) > 0) {
-                arm.armMotor.set(oi.getLeftY_2());
+                arm.armMotor.set(-oi.getLeftY_2());
             } else {
                arm.armMotor.set(0); 
             }
@@ -71,7 +71,7 @@ public class ControlShooter extends CommandBase {
             Scheduler.getInstance().add(new TriggerCommand());
             System.out.println("RB Pressed");
         }
-        if (oi.getLB_2() && !(shooter.triggerRunning)){
+        if (oi.get4_2() && !(shooter.triggerRunning)){
             shooter.triggerRunning=true;
             Scheduler.getInstance().add(new MoveTrigger());
             System.out.println("LB Pressed");

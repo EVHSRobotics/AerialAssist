@@ -29,12 +29,12 @@ public class TriggerCommand extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
         
-        init = shooter.triggerPot.getAverageValue();
-        pos = init;
+       init = shooter.triggerPot.getAverageValue();
+        pos = shooter.initialTriggerPos;
         System.out.println("Trigger Forward");
         shooter.setTrigger(1);
-        System.out.println("Init: " + init);
-        while ((pos < (Shooter.TRIGGER_END + init)) && (count < 22)){
+       // System.out.println("Init: " + init);
+        while ((pos < (Shooter.TRIGGER_END)) && (count < 22)){
             pos = shooter.returnTriggerPosition();
             System.out.println("P: " + pos);
            System.out.println("F: " + arm.armMotor.get());
@@ -47,7 +47,7 @@ public class TriggerCommand extends CommandBase {
         System.out.println("Trigger Backward");
         shooter.setTrigger(-1);
         count = 0;
-        while (pos > (shooter.initialTriggerPos) && (count < 22)){
+        while (pos > (Shooter.TRIGGER_START) && (count < 20)){
             pos = shooter.returnTriggerPosition();
             System.out.println("P: " + pos);
             

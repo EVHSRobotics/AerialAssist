@@ -28,7 +28,7 @@ public class DriveTrain extends Subsystem {
     public Victor backLeft;// = RobotMap.driveTrainBackLeft;
     public Victor frontLeft;// = RobotMap.driveTrainFrontLeft;
     public Gyro gyro;
-    public double driveTime = 2.5;
+    public double driveTime = 2;
             public boolean autoRunning;
     
     public DriveTrain(){
