@@ -55,22 +55,17 @@ public class Autonomous extends CommandBase {
     protected void executeAuto(int autoNum) {
         switch(autoNum) {
             case AutoId.NOTHING: 
-                System.out.println("Nothing");
                 break; 
             case AutoId.MOVE_AND_SHOOT: 
                 Scheduler.getInstance().add(new MoveandShoot());
-                System.out.println("Move and Shoot");
                 break; 
             case AutoId.MOVE:
-                System.out.println("Move");
                 Scheduler.getInstance().add(new MoveForward());
                 break;
             case AutoId.SHOOT: 
-                System.out.println("Shoot");
                 Scheduler.getInstance().add(new ShootBall());
                 break;
             default:
-                System.out.println("ERROR AUTO");
                 break; 
         }
     }

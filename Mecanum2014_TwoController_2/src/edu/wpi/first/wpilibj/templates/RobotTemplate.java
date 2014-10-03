@@ -13,9 +13,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.templates.commands.*;
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
+import edu.wpi.first.wpilibj.templates.commands.Autonomous;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,8 +25,7 @@ import edu.wpi.first.wpilibj.templates.commands.*;
  */
 public class RobotTemplate extends IterativeRobot {
 
-    Command autonomousCommand = new NoAction();
-    SendableChooser autoChooser;
+    Command autonomousCommand;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -35,23 +33,16 @@ public class RobotTemplate extends IterativeRobot {
      */
     public void robotInit() {
         // instantiate the command used for the autonomous period
-        
-        /*autonomousCommand = new Autonomous();
+        autonomousCommand = new Autonomous();
         NetworkTable smartDashboard = NetworkTable.getTable("SmartDashboard");
         smartDashboard.putNumber("autonomousChoice", 0);
-        */
         // Initialize all subsystems
-        
-        autoChooser = new SendableChooser();
-        autoChooser.addDefault("Do Nothing", new NoAction());
-        autoChooser.addObject("Move Forward", new MoveForward());
-        SmartDashboard.putData("Autonomous Mode Choooser", autoChooser);
         CommandBase.init();
     }
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        autonomousCommand = (Command)autoChooser.getSelected();
+        
         autonomousCommand.start();
     }
 

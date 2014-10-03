@@ -29,19 +29,60 @@ public class TriggerCommand extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
         
-
+       init = shooter.triggerPot.getAverageValue();
+        pos = shooter.initialTriggerPos;
+        System.out.println("Trigger Forward");
         shooter.setTrigger(1);
-        Timer.delay(.2);
-        /*
-        shooter.setTrigger(1);
-        Timer.delay(.8);
+       // System.out.println("Init: " + init);
+        while ((pos < (Shooter.TRIGGER_END)) && (count < 22)){
+            pos = shooter.returnTriggerPosition();
+            System.out.println("P: " + pos);
+           System.out.println("F: " + arm.armMotor.get());
+            count++;
+            System.out.println("C: " +count);
+            Timer.delay(.05);
+            
+        }
+        //Timer.delay(fTime);
+        System.out.println("Trigger Backward");
         shooter.setTrigger(-1);
-        Timer.delay(.43);
-        */
+        count = 0;
+        while (pos > (Shooter.TRIGGER_START) && (count < 20)){
+            pos = shooter.returnTriggerPosition();
+            System.out.println("P: " + pos);
+            
+           System.out.println("F: " + arm.armMotor.get());
+            count++;
+            System.out.println("C: " +count);
+            Timer.delay(.05);
+        }
+        //Timer.delay(bTime);
+        System.out.println("Trigger Finished");
+        shooter.setTrigger(0);
+        shooter.triggerRunning = false;
+//
+//        while (shooter.triggerPot.getAverageValue() < Shooter.TRIGGER_END) {
+//            shooter.setTrigger(-1);
+//            System.out.println(shooter.triggerPot.getAverageValue());
+//        }
+//        shooter.setTrigger(0);
+//        while (shooter.triggerPot.getAverageValue() > Shooter.TRIGGER_START) {
+//            shooter.setTrigger(.7);
+//            
+//            System.out.println(shooter.triggerPot.getAverageValue());
+//        }
+//        shooter.setTrigger(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
  protected void execute() {
+//        double position = shooter.returnTriggerPosition();
+//           difference = Shooter.START - position;
+//            shooter.armMotor.set(getSign(difference));
+//            System.out.println("Difference: " + difference);
+//            System.out.println("F: " + Shooter.START);
+//            System.out.println("P: " + position);
+//            System.out.println("O: " + shooter.launchMotor.get());
        
     }
 

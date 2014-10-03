@@ -6,27 +6,33 @@
 package edu.wpi.first.wpilibj.templates.commands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
  *
  * @author Justin
  */
-public class MoveTrigger extends CommandBase {
-    
-    public MoveTrigger() {
+public class MoveForward extends CommandBase {
+    double forwardTime = driveTrain.driveTime;
+    public MoveForward(){
+        
+    }
+    public MoveForward(double time) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        forwardTime = time;
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
-        shooter.launchMotor.set(-1);
-                Timer.delay(.2);
-                shooter.launchMotor.set(0);
+     protected void initialize() {
+        driveTrain.autoRunning = true;
+        driveTrain.mecDrive(0, .8, 0, 0);
+        Timer.delay(1.5);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -36,12 +42,16 @@ public class MoveTrigger extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        shooter.triggerRunning = false;
+        driveTrain.mecDrive(0, 0, 0, 0);
+        driveTrain.autoRunning = false;
+        System.out.println("Auto Finished");
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        shooter.triggerRunning = false;   
+        
+        driveTrain.mecDrive(0, 0, 0, 0);
+        driveTrain.autoRunning = false;
     }
 }

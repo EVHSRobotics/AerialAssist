@@ -5,24 +5,19 @@
  */
 package edu.wpi.first.wpilibj.templates.commands;
 
-import edu.wpi.first.wpilibj.Timer;
-
 /**
  *
  * @author Justin
  */
-public class MoveTrigger extends CommandBase {
+public class NoAction extends CommandBase {
     
-    public MoveTrigger() {
+    public NoAction() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        shooter.launchMotor.set(-1);
-                Timer.delay(.2);
-                shooter.launchMotor.set(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -36,12 +31,10 @@ public class MoveTrigger extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        shooter.triggerRunning = false;
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        shooter.triggerRunning = false;   
     }
 }
