@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.templates.subsystems.Arm;
+import utilities.UtilityFunctions;
 
 /**
  *
@@ -23,8 +24,6 @@ public class ControlShooter extends CommandBase {
     double bTime = .5;
     double armSpeed = .8;
     double driveForwardTime = driveTrain.driveTime;
-    public final double DEADBAND = 0.1;
-    double initialTriggerPos;
 
     public ControlShooter() {
         // Use requires() here to declare subsystem dependencies
@@ -34,7 +33,6 @@ public class ControlShooter extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        initialTriggerPos = shooter.returnTriggerPosition();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -43,6 +41,7 @@ public class ControlShooter extends CommandBase {
         if (oi.getStart()) {
         }
 
+        //Moves shooting wheels
         {
             if (oi.getA()) {
                 shooter.shoot(-pickUpSpeed);
@@ -54,36 +53,41 @@ public class ControlShooter extends CommandBase {
                 shooter.shoot(0);
             }
         }
-        if (oi.getBack()) {
-            driveTrain.gyro.reset();
-            System.out.println("Gyro Reset");
-        }
+
+        //Moves arm
         {
-            if (oi.getY()) {
-                arm.armMotor.set(-armSpeed);
-                System.out.println("button: Y");
-                System.out.println("Arm Position" + arm.returnArmPosition());
-            } else if (oi.getB()) {
-                arm.armMotor.set(armSpeed);
-                System.out.println("button: B");
-                System.out.println("Arm Position" + arm.returnArmPosition());
-            } else {
-               arm.armMotor.set(0); 
+            double dPad = UtilityFunctions.fixDeadBand(oi.getDPad());
+            if (dPad != 0 && !(Arm.armMoving)) {
+                Arm.armMoving = true;
+                Scheduler.getInstance().add(new MoveArmPosition(dPad));
+            } else if (!(Arm.armMoving)) {
+                double yValue = UtilityFunctions.fixDeadBand(oi.getRightY());
+
+                if (yValue < 0) {
+                    yValue *= 1.08;//multiplied by 1.08 because joystick forward doesn't send full signal
+                }
+                if (yValue < -1) {
+                    yValue = -1;
+                } else if (yValue > 1) {
+                    yValue = 1;
+                }
+                arm.moveArm(armSpeed * yValue);
             }
         }
 
-        { if (oi.getRB() && !(shooter.triggerRunning)) {
-           shooter.triggerRunning = true;
-            Scheduler.getInstance().add(new TriggerCommand());
-            System.out.println("RB Pressed");
+        //Moves trigger
+        {
+            if (oi.getRB() && !(shooter.triggerRunning)) {
+                shooter.triggerRunning = true;
+                Scheduler.getInstance().add(new TriggerFire());
+                System.out.println("RB Pressed");
+            }
+            if (oi.getLB() && !(shooter.triggerRunning)) {
+                shooter.triggerRunning = true;
+                Scheduler.getInstance().add(new TriggerHold());
+                System.out.println("LB Pressed");
+            }
         }
-        if (oi.getLB() && !(shooter.triggerRunning)){
-            shooter.triggerRunning=true;
-            Scheduler.getInstance().add(new MoveTrigger());
-            System.out.println("LB Pressed");
-        }
-        }
-
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -99,4 +103,5 @@ public class ControlShooter extends CommandBase {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
+
 }

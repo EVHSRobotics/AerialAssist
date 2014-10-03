@@ -5,14 +5,15 @@
  */
 package edu.wpi.first.wpilibj.templates.commands;
 
+import utilities.UtilityFunctions;
+
 /**
  *
  * @author Justin
  */
 public class MecanumDrive extends CommandBase {
 
-    public final double DEADBAND = .3;
-    private final double SENSITIVITY = 1;
+    private final double DRIVE_SENSITIVITY = 1;
     public double xValue;
     public double yValue;
     public double twist;
@@ -33,8 +34,8 @@ public class MecanumDrive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        yValue = SENSITIVITY * fixDeadBand(oi.getLeftY(), DEADBAND); 
-        xValue = SENSITIVITY * fixDeadBand(oi.getLeftX(), DEADBAND);
+        yValue = DRIVE_SENSITIVITY * UtilityFunctions.fixDeadBand(oi.getLeftY()); 
+        xValue = DRIVE_SENSITIVITY * UtilityFunctions.fixDeadBand(oi.getLeftX());
         
         if (yValue < 0 ){
             yValue *=1.08;//multiplied by 1.08 because joystick forward doesn't send full signal
@@ -43,7 +44,7 @@ public class MecanumDrive extends CommandBase {
             yValue = -1;
         }
         
-        twist = .7 * SENSITIVITY * fixDeadBand(oi.getTriggers(), DEADBAND); //double deadband
+        twist = .7 * DRIVE_SENSITIVITY * UtilityFunctions.fixDeadBand(oi.getTriggers()); //double deadband
         angle = driveTrain.gyro.getAngle();
         //System.out.println("A: " +angle);
 
@@ -69,7 +70,5 @@ public class MecanumDrive extends CommandBase {
     protected void interrupted() {
     }
 
-    private double fixDeadBand(double speed, double deadBand) {
-        return (Math.abs(speed) > deadBand ? speed : 0.0);
-    }
+
 }

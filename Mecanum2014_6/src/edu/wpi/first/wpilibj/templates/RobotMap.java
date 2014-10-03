@@ -18,6 +18,6 @@ public class RobotMap {
     public static final int LAUNCH_MOTOR = 7;
     
     public static final int GYRO_PORT = 2;
-    public static final int ARM_POT_PORT = 6;
-    public static final int TRIGGER_POT_PORT = 5;
+    public static final int LIMIT_SWITCH_PICKUP_PORT = 5;
+    public static final int LIMIT_SWITCH_SHOOT_PORT = 5;
 }

@@ -45,6 +45,7 @@ public class RobotTemplate extends IterativeRobot {
         autoChooser = new SendableChooser();
         autoChooser.addDefault("Do Nothing", new NoAction());
         autoChooser.addObject("Move Forward", new MoveForward());
+        autoChooser.addObject("Move and Shoot", new MoveandShoot());
         SmartDashboard.putData("Autonomous Mode Choooser", autoChooser);
         CommandBase.init();
     }
@@ -52,6 +53,7 @@ public class RobotTemplate extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
         autonomousCommand = (Command)autoChooser.getSelected();
+        System.out.println(autonomousCommand.toString()+" selected");
         autonomousCommand.start();
     }
 

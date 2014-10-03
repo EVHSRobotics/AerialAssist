@@ -28,27 +28,12 @@ public class Shooter extends Subsystem {
     public Victor rightCim;
     public Victor armMotor;
     public Victor launchMotor;
-    public AnalogChannel triggerPot;
-    public AnalogChannel armPot;
-    public static final int 
-            TRIGGER_START = 100, //Encoder axle from inside turning clockwise is positive 771?
-            TRIGGER_END = 900; //other pot 500-900
-    public int initialTriggerPos;
-    public static final double TOLERANCE = 50, MINRATE = .2;
     public boolean triggerRunning;
-    public double position,   oldTriggerReading,
-            newTriggerReading, numberOfTriggerCycles;
-
     public Shooter() {
         leftCim = new Victor(RobotMap.LEFT_SHOOT_MOTOR);
         rightCim = new Victor(RobotMap.RIGHT_SHOOT_MOTOR);
         launchMotor = new Victor(RobotMap.LAUNCH_MOTOR);
      
-        triggerPot = new AnalogChannel(RobotMap.TRIGGER_POT_PORT); //don't plug into port 8; clockwise positive; lowest ~475, highest ~961
-        initialTriggerPos = triggerPot.getAverageValue();
-        System.out.println("Initial Trigger Position:" + initialTriggerPos);
-        oldTriggerReading = triggerPot.getAverageValue();
-        numberOfTriggerCycles = 0;
 
     }
 
@@ -56,48 +41,6 @@ public class Shooter extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
         setDefaultCommand(new ControlShooter());
-    }
-
-
-
-    
-    public double returnTriggerPosition() {
-        newTriggerReading = triggerPot.getAverageValue();
-
-        if (Math.abs(newTriggerReading - oldTriggerReading) > 450) {
-            if ((newTriggerReading - oldTriggerReading) > 450) {
-                numberOfTriggerCycles--;
-               System.out.println("Increment Down" + " N: " +newTriggerReading + " O: "+ oldTriggerReading);
-            } else if ((newTriggerReading - oldTriggerReading) < -450) {
-                numberOfTriggerCycles++;
-               System.out.println("Increment Up" + " N: " +newTriggerReading + " O: "+ oldTriggerReading);
-            }
-        }
-        position = 960 * numberOfTriggerCycles + newTriggerReading;
-        oldTriggerReading = newTriggerReading;
-        //System.out.println("P: " +position);
-        //System.out.println("Position: " + position + " Reading:" +newArmReading);
-        return position; 
-
-    }    
-
-    public double getSign(double f) {
-        if (f != f) {
-            throw new IllegalArgumentException("NaN");
-        }
-        if (f == 0) {
-            return 0;
-        }
-        f *= Double.POSITIVE_INFINITY;
-        if (f == Double.POSITIVE_INFINITY) {
-            return +1;
-        }
-        if (f == Double.NEGATIVE_INFINITY) {
-            return -1;
-        }
-
-        //this should never be reached, but I've been wrong before...
-        throw new IllegalArgumentException("Unfathomed double");
     }
 
     public void shoot(double speed) {
