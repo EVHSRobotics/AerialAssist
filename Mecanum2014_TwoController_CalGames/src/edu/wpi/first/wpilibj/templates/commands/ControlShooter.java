@@ -37,14 +37,13 @@ public class ControlShooter extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        //System.out.println("Arm: " + arm.returnArmPosition());
 
         //Moves shooting wheels
         {
-            if (oi.getA()) {
+            if (oi.getA_2()) {
                 shooter.shoot(-pickUpSpeed);
                 System.out.println("button: A");
-            } else if (oi.getX()) {
+            } else if (oi.getX_2()) {
                 shooter.shoot(shootingSpeed);
                 System.out.println("button: X");
             } else {
@@ -54,12 +53,12 @@ public class ControlShooter extends CommandBase {
 
         //Moves arm
         {
-            double dPad = UtilityFunctions.fixDeadBand(oi.getDPad());
+            double dPad = UtilityFunctions.fixDeadBand(oi.getDPad_2());
             if (dPad != 0 && !(Arm.armMoving)) {
                 Arm.armMoving = true;
                 Scheduler.getInstance().add(new MoveArmPosition(dPad));
             } else if (!(Arm.armMoving)) {
-                double yValue = UtilityFunctions.fixDeadBand(oi.getRightY());
+                double yValue = UtilityFunctions.fixDeadBand(oi.getRightY_2());
 
                 if (yValue < 0) {
                     yValue *= 1.08;//multiplied by 1.08 because joystick forward doesn't send full signal
@@ -75,12 +74,12 @@ public class ControlShooter extends CommandBase {
 
         //Moves trigger
         {
-            if (oi.getRB() && !(shooter.triggerRunning)) {
+            if (oi.getRB_2() && !(shooter.triggerRunning)) {
                 shooter.triggerRunning = true;
                 Scheduler.getInstance().add(new TriggerFire());
                 System.out.println("RB Pressed");
             }
-            if (oi.getLB() && !(shooter.triggerRunning)) {
+            if (oi.getLB_2() && !(shooter.triggerRunning)) {
                 shooter.triggerRunning = true;
                 Scheduler.getInstance().add(new TriggerHold());
                 System.out.println("LB Pressed");
