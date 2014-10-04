@@ -30,6 +30,7 @@ public class DriveTrain extends Subsystem {
     public Gyro gyro;
     public double driveTime = 2;
             public boolean autoRunning;
+            public boolean gyroEnabled = false;
     
     public DriveTrain(){
         backRight = new Victor(RobotMap.RIGHT_MOTOR_BACK);

@@ -52,7 +52,7 @@ public class MecanumDrive extends CommandBase {
             driveTrain.gyro.reset();
             System.out.println("Gyro Reset");
         }
-        driveTrain.mecDrive(xValue, -yValue, -twist, 0); //replace 0 with angle if using gyro
+        driveTrain.mecDrive(xValue, -yValue, -twist, angle); //replace 0 with angle if using gyro
 
     }
 

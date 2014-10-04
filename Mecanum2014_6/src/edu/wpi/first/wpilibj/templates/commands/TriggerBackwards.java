@@ -20,8 +20,8 @@ public class TriggerBackwards extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        shooter.launchMotor.set(-1);
-                Timer.delay(.2);
+        shooter.launchMotor.set(1);
+                Timer.delay(.05);
                 shooter.launchMotor.set(0);
     }
 

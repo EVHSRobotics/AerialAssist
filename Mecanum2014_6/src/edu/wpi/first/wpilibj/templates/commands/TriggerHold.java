@@ -32,7 +32,7 @@ public class TriggerHold extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return oi.getLB();
+        return !oi.getLB();
     }
 
     // Called once after isFinished returns true
@@ -41,6 +41,7 @@ public class TriggerHold extends CommandBase {
         Timer.delay(.43);
         shooter.setTrigger(0);
         shooter.triggerRunning = false;
+        System.out.println("RELEASE HOLD");
     }
 
     // Called when another command which requires one or more of the same

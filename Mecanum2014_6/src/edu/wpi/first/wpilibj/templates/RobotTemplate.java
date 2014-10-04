@@ -41,7 +41,8 @@ public class RobotTemplate extends IterativeRobot {
         smartDashboard.putNumber("autonomousChoice", 0);
         */
         // Initialize all subsystems
-        
+        SmartDashboard.putNumber("FlatArm", .6);
+        SmartDashboard.putNumber("PickupSpeed", .8);
         autoChooser = new SendableChooser();
         autoChooser.addDefault("Do Nothing", new NoAction());
         autoChooser.addObject("Move Forward", new MoveForward());

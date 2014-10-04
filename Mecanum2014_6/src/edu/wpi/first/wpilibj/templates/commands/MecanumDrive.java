@@ -5,6 +5,7 @@
  */
 package edu.wpi.first.wpilibj.templates.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import utilities.UtilityFunctions;
 
 /**
@@ -46,13 +47,22 @@ public class MecanumDrive extends CommandBase {
         
         twist = .7 * DRIVE_SENSITIVITY * UtilityFunctions.fixDeadBand(oi.getTriggers()); //double deadband
         angle = driveTrain.gyro.getAngle();
-        //System.out.println("A: " +angle);
+        System.out.println("A: " +angle);
 
         if (oi.getBack()) {
             driveTrain.gyro.reset();
             System.out.println("Gyro Reset");
         }
-        driveTrain.mecDrive(xValue, -yValue, -twist, 0); //replace 0 with angle if using gyro
+        
+        if(oi.getStart()){
+            driveTrain.gyroEnabled = !driveTrain.gyroEnabled;
+            Timer.delay(.2);
+        }
+        
+        if(!driveTrain.gyroEnabled){
+            angle = 0;
+        }
+        driveTrain.mecDrive(xValue, -yValue, -twist, angle); //replace 0 with angle if using gyro
 
     }
 

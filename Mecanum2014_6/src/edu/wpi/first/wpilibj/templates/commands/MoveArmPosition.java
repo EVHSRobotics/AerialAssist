@@ -5,6 +5,7 @@
  */
 package edu.wpi.first.wpilibj.templates.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import utilities.UtilityFunctions;
 
 /**
@@ -15,10 +16,12 @@ public class MoveArmPosition extends CommandBase {
 
     boolean towardsPickup;
     double armMoveSpeed = .6;
+    double direction = 0;
 
     public MoveArmPosition(double d) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        direction = UtilityFunctions.getSign(d);
         if (UtilityFunctions.getSign(d) == 1) {
             towardsPickup = true;
         } else {
@@ -30,11 +33,15 @@ public class MoveArmPosition extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
         arm.resetCounters();
+        arm.moveArm(armMoveSpeed * direction);
+        Timer.delay(1);
+        /*
         if (towardsPickup) {
             arm.moveArm(armMoveSpeed);
         } else {
             arm.moveArm(-armMoveSpeed);
         }
+                */
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -43,11 +50,13 @@ public class MoveArmPosition extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+        /*
         if (towardsPickup) {
             return arm.isPickupHit();
         } else {
             return arm.isShootingHit();
-        }
+        }*/
+        return true;
     }
 
     // Called once after isFinished returns true

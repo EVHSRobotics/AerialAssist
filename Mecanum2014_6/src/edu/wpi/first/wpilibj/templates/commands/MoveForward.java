@@ -25,9 +25,10 @@ public class MoveForward extends CommandBase {
 
     // Called just before this Command runs the first time
      protected void initialize() {
+         System.out.println("FORWARD COMMAND STARTED");
         driveTrain.autoRunning = true;
-        driveTrain.mecDrive(0, .8, 0, 0);
-        Timer.delay(1.5);
+        driveTrain.mecDrive(0, .6, 0, 0);
+        Timer.delay(1);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -44,7 +45,7 @@ public class MoveForward extends CommandBase {
     protected void end() {
         driveTrain.mecDrive(0, 0, 0, 0);
         driveTrain.autoRunning = false;
-        System.out.println("Auto Finished");
+        System.out.println("FORWARD COMMAND Finished");
     }
 
     // Called when another command which requires one or more of the same

@@ -8,6 +8,7 @@ package edu.wpi.first.wpilibj.templates.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.templates.subsystems.Arm;
 import utilities.UtilityFunctions;
 
@@ -24,7 +25,7 @@ public class ControlShooter extends CommandBase {
     double bTime = .5;
     double armSpeed = .8;
     double driveForwardTime = driveTrain.driveTime;
-
+    double flatArmSpeed = .6;
     public ControlShooter() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -42,6 +43,7 @@ public class ControlShooter extends CommandBase {
         //Moves shooting wheels
         {
             if (oi.getA()) {
+                pickUpSpeed = SmartDashboard.getNumber("PickupSpeed", pickUpSpeed);
                 shooter.shoot(-pickUpSpeed);
                 System.out.println("button: A");
             } else if (oi.getX()) {
@@ -55,10 +57,18 @@ public class ControlShooter extends CommandBase {
         //Moves arm
         {
             double dPad = UtilityFunctions.fixDeadBand(oi.getDPad());
+            if (dPad != 0 && !Arm.armMoving){
+                flatArmSpeed = SmartDashboard.getNumber("FlatArm", .6);
+                arm.moveArm(flatArmSpeed);
+            }
+            /*
             if (dPad != 0 && !(Arm.armMoving)) {
                 Arm.armMoving = true;
                 Scheduler.getInstance().add(new MoveArmPosition(dPad));
-            } else if (!(Arm.armMoving)) {
+            } 
+                   */
+            
+            if (!(Arm.armMoving)) {
                 double yValue = UtilityFunctions.fixDeadBand(oi.getRightY());
 
                 if (yValue < 0) {
@@ -82,7 +92,7 @@ public class ControlShooter extends CommandBase {
             }
             if (oi.getLB() && !(shooter.triggerRunning)) {
                 shooter.triggerRunning = true;
-                Scheduler.getInstance().add(new TriggerHold());
+                Scheduler.getInstance().add(new TriggerBackwards());
                 System.out.println("LB Pressed");
             }
         }

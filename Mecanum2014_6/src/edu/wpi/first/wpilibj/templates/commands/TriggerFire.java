@@ -24,7 +24,7 @@ public class TriggerFire extends CommandBase {
         shooter.setTrigger(1);
         Timer.delay(.8);
         shooter.setTrigger(-1);
-        Timer.delay(.43);
+        Timer.delay(.37);
     }
 
     // Called repeatedly when this Command is scheduled to run
