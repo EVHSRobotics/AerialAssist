@@ -47,6 +47,8 @@ public class ControlShooter extends CommandBase {
                 shooter.shoot(-pickUpSpeed);
                 System.out.println("button: A");
             } else if (oi.getX()) {
+                
+        shootingSpeed = SmartDashboard.getNumber("ShootingSpeed", shootingSpeed);
                 shooter.shoot(shootingSpeed);
                 System.out.println("button: X");
             } else {

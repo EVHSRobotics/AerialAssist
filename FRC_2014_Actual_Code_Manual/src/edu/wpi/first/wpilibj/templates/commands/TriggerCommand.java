@@ -29,11 +29,11 @@ public class TriggerCommand extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
         
-
         shooter.setTrigger(1);
         Timer.delay(.8);
         shooter.setTrigger(-1);
         Timer.delay(.43);
+        
     }
 
     // Called repeatedly when this Command is scheduled to run
